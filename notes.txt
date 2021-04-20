@@ -1,0 +1,5 @@
+Wallets / Wallet ID
+
+binance - bitcoin
+paxful - bitcoin
+USBT - bitcoin

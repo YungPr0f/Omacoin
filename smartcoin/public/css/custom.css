@@ -1,0 +1,185 @@
+.lh-30 {
+    line-height: 30px;
+}
+
+.h-32 {
+    height: 32px;
+}
+
+.v-align-middle {
+    vertical-align: middle !important;
+}
+
+.sidebar-left .sidebar-content .sidebar-menu ul li a.active {
+    color: #0067f4;
+}
+
+/*===== BACK TO TOP =====*/
+.back-to-top {
+    font-size: 20px;
+    color: #fff;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+    background-color: #0067f4;
+    text-align: center;
+    z-index: 99;
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+    display: none; 
+}
+
+.back-to-top:hover {
+    color: #fff;
+    background-color: #005ad5;
+}
+
+.bg-blue {
+    background-color: #0067f4;
+}
+
+.text-blue {
+    color: #0067f4;
+}
+
+.fs-20 {
+    font-size: 20px !important;
+}
+
+
+
+/* Toastr Start*/
+
+.toast-success {
+    background-color: #4da422 !important;
+}
+
+.toast-error {
+    background-color: #fc3832 !important;
+}
+
+.toast-info {
+    background-color: #00b8d8 !important;
+}
+
+.toast-warning {
+    background-color: #ffb400 !important;
+}
+
+/* Toastr End */
+
+
+
+/* Dashboard */
+.portfolio-menu-3 li:nth-child(1) {
+    margin-left: 0 !important;
+}
+
+.portfolio-menu-3 li:nth-last-child(1) {
+    margin-right: 0 !important;
+}
+
+.portfolio-menu-3 ul li.active {
+    border: 1px solid #dee2e6!important;
+    border-color: #007bff!important;
+    border-top-left-radius: .25rem!important;
+    border-top-right-radius: .25rem!important;
+}
+
+    /* Jasny File Upload - Material Kit */
+    .file-click.sm-btn {
+        line-height: 36px !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .fileinput-exists .fileinput-new, .fileinput-new .fileinput-exists {
+        display: none !important;
+    }
+
+    .fileinput .thumbnail {
+        max-width: none !important;
+    }
+
+    .danger-buttons .fileinput-exists.danger-two {
+        color: #fff !important;
+        background-color: #fc3832 !important;
+        border-color: #fc3832 !important;
+    }
+
+    .danger-buttons .fileinput-exists.danger-two:hover {
+        color: #fc3832 !important;
+        background-color: transparent !important;
+    }
+
+    .success-buttons .fileinput-exists.success-two {
+        color: #fff !important;
+        background-color: #4da422 !important;
+        border-color: #4da422 !important;
+    }
+
+    .success-buttons .fileinput-exists.success-two:hover {
+        color: #4da422 !important;
+        background-color: transparent !important;
+    }
+    
+
+    .sdfsdf {
+        /* width: 40px;
+        height: 40px;
+        line-height: 36px;
+        text-align: center;
+        font-size: 24px; */
+    }
+
+    /* Jasny File Upload - Material Kit */
+
+
+input.editable {
+    padding-right: 65px !important;
+}
+
+    /* Nice Select */
+
+    .custom-dropdown .input-items .nice-select {
+        width: 100%;
+        height: 44px;
+        border: 2px solid;
+        border-color: #0067f4 !important;
+        color: #121212 !important;
+        font-size: 16px !important;
+    }
+
+    .custom-dropdown .input-items .nice-select-search-box input, .custom-dropdown .input-items li  {
+        /* width: 100%; */
+        border-color: #a4a4a4;
+        color: #6c6c6c;
+        font-size: 14px !important;
+    }
+
+    .custom-dropdown .input-items .nice-select::after {
+        width: 8px;
+        height: 8px;
+    }
+
+    .nice-select li.option, .nice-select .current {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+
+    .nice-select ul.list {
+        width: 100% !important;
+    }
+
+    /* Nice Select */
+
+/* Dashboard End */
