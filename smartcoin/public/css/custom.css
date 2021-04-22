@@ -162,11 +162,13 @@ input.editable {
         border-color: #a4a4a4;
         color: #6c6c6c;
         font-size: 14px !important;
+        margin: 0 !important;
     }
 
     .custom-dropdown .input-items .nice-select::after {
         width: 8px;
         height: 8px;
+        margin-right: 2rem;
     }
 
     .nice-select li.option, .nice-select .current {

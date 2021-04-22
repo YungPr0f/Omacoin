@@ -20,6 +20,8 @@
                             <div class="footer-logo-support d-md-flex">
                                 <div class="footer-logo w-100">
                                     <ul class="social ml-0 mt-20 d-flex justify-content-between">
+                                        <li><a href="https://facebook.com/uideckHQ"><i class="lni-whatsapp"></i></a></li>
+                                        <!-- <li><a href="https://facebook.com/uideckHQ"><i class="lni-phone-handset"></i></a></li> -->
                                         <li><a href="https://facebook.com/uideckHQ"><i class="lni-facebook-filled"></i></a></li>
                                         <li><a href="https://twitter.com/uideckHQ"><i class="lni-twitter-original"></i></a></li>
                                         <li><a href="https://instagram.com/uideckHQ"><i class="lni-instagram-original"></i></a></li>

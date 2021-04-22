@@ -22,7 +22,7 @@
                 </div>
             </div> <!-- row -->
             <div class="row grid-3">
-                <div class="col-12 profile d-none">
+                <div class="col-12 profile">
                     <div class="single-portfolio border border-primary p-4">
                         <div class="row">
                             <div class="col-sm-5 col-lg-3">
@@ -40,7 +40,7 @@
                                                         <div class="form-group">
                                                             <div class="fileinput fileinput-new w-100 mb-0" data-provides="fileinput">
                                                                 <div class="fileinput-new thumbnail w-100 ui rounded field-border border">
-                                                                    <img src="{{ asset('img/ui/head.jpg') }}" class="img-fluid border" alt="...">
+                                                                    <img src="{{ asset('img/ui/head.jpg') }}" class="img-fluid border rounded" alt="...">
                                                                 </div>
                                                                 <div class="fileinput-preview fileinput-exists thumbnail lh-0 border rounded"></div>
                                                                 <div class="d-flex justify-content-between">
@@ -181,29 +181,40 @@
                                                 </div>
                                             </div> <!-- card -->
 
-                                            <div class="card" style="height:1000px">
+                                            <div class="card">
                                                 <div class="card-header" id="headingEightteen">
                                                     <a class="collapsed" href="#collapseEightteen" data-toggle="collapse" role="button"  aria-expanded="false">Bank Information</a>
                                                 </div>
                                                 <div id="collapseEightteen" class="collapse" data-parent="#accordionFour">
                                                     <div class="card-body">
-                                                        <div class="form-style form-style-two">
-                                                            <div class="row">
-                                                                <div class="col-lg-2">
-                                                                    <img src="{{ asset('img/ui/bank.jpg') }}" class="img-fluid rounded" alt="">
+                                                        <div class="row">
+                                                            <div class="col-4 col-sm-6 mb-sm-4 col-md-3 col-lg-2">
+                                                                <div class="form-input">
+                                                                    <label>Bank Icon</label>
+                                                                    <div class="input-items">
+                                                                        <img src="{{ asset('img/ui/bank.jpg') }}" class="img-fluid rounded" alt="">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-lg-10">
+                                                            </div>
+                                                            <div class="col-8 col-sm-12 col-md-9 col-lg-10">
+                                                                <div class="form-style form-style-two">
                                                                     <div class="row">
-                                                                        <div class="col-lg-6">
+
+                                                                        <div class="col-12 col-lg-6 pb-4">
                                                                             <div class="custom-dropdown form-input">
                                                                                 <form action="#">
                                                                                     <label>Bank Name</label>
                                                                                     <div class="input-items active regular-icon-buttons">
                                                                                         <select>
-                                                                                            <option value="0">United States</option>
-                                                                                            <option value="2">United Kingdom</option>
-                                                                                            <option value="3">Canada</option>
-                                                                                            <option value="4">United Bank for Africa Union</option>
+                                                                                            <option value="0">Access Bank</option>
+                                                                                            <option value="2">ALAT by Wema</option>
+                                                                                            <option value="3">Citibank Nigeria</option>
+                                                                                            <option value="4">Ecobank Nigeria</option>
+                                                                                            <option value="5">Econdo Microfinance Bank</option>
+                                                                                            <option value="6">ALAT by Wema</option>
+                                                                                            <option value="7">Citibank Nigeria</option>
+                                                                                            <option value="8">Ecobank Nigeria</option>
+                                                                                            <option value="9">Econdo Microfinance Bank</option>
                                                                                         </select>
                                                                                         <a href="#" class="regular-icon-light-two"><i class="lni-pencil-alt font-weight-bolder"></i></a>
                                                                                     </div>
@@ -211,7 +222,7 @@
                                                                             </div> <!-- form input -->
                                                                         </div>
 
-                                                                        <div class="col-lg-6">
+                                                                        <div class="col-12 col-lg-6">
                                                                             <div class="form-input">
                                                                                 <form action="#">
                                                                                     <label>Account Number</label>
@@ -221,10 +232,10 @@
                                                                                         <a href="#" class="regular-icon-light-two"><i class="lni-pencil-alt font-weight-bolder"></i></a>
                                                                                     </div>
                                                                                 </form>
-                                                                            </div> <!-- form input -->
+                                                                            </div>
                                                                         </div>
-                                                                        
-                                                                        <div class="col-lg-12 mt-0">
+
+                                                                        <div class="col-12">
                                                                             <div class="form-input">
                                                                                 <form action="#">
                                                                                     <label>Account Name</label>
@@ -234,14 +245,14 @@
                                                                                         <a href="#" class="regular-icon-light-two"><i class="lni-pencil-alt font-weight-bolder"></i></a>
                                                                                     </div>
                                                                                 </form>
-                                                                            </div> <!-- form input -->
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                
-                                                                
-                                                            </div> <!-- row -->
-                                                        </div>
+                                                            </div>
+                                                            
+                                                            
+                                                        </div> <!-- row -->
                                                         <!-- <p class="text">Raw denim you probably haven’t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. <br> <br> Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p> -->
                                                     </div>
                                                 </div>
@@ -356,11 +367,69 @@
         filter: dataFilter
     }).children().removeClass('d-none');
 
+    $('.grid-3 [data-toggle="collapse"]').click(function () {
+        var id = $(this).attr('href');
 
-    // Remove margin on both first and last li
-    //var lastLi = $('.portfolio-menu-3').find('li').last();
+        $(id).on('shown.bs.collapse hidden.bs.collapse', function() {
+            $('.grid-3').isotope('layout');
+            
+        });
 
-    //firstLi.addClass('ml-0');
-    //lastLi.addClass('mr-0');
+        
+    });
+
+
+    // Adjust Accordion to fit Bank Name Dropdown
+    $(document).on('click.nice-select', '.nice-select', function() {
+
+        var list = $('.nice-select');
+
+        var container = list.parents('.collapse');
+
+        var card = container.children('.card-body');
+
+        var listBottom = list.offset().top + list.height();
+
+        var containerBottom = container.offset().top + container.height();
+
+        var cardBottom = card.offset().top + card.height();
+
+
+        if($('.nice-select').hasClass('open')) {
+
+            var diff = containerBottom - cardBottom;
+            
+            if(diff > 30) {
+                container.animate({
+                    height: container.height() - (diff - 32)
+
+                }, 100, function() {
+                    $('.grid-3').isotope('layout');
+
+                });
+            }
+
+        } else {
+
+            var diff = containerBottom - listBottom;
+
+            if(diff < 240) {
+                container.animate({
+                    height: container.height() + (240 - diff)
+
+                }, 100, function() {
+                    $('.grid-3').isotope('layout');
+
+                });
+
+                
+            }
+        }
+        
+
+        
+
+    });
+
     
 @endsection

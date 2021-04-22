@@ -76,20 +76,20 @@
 
     var countx = 1;
 
-    function transition() {
+    function priceFlash() {
 
         if(countx == 1) {
-            $('.rates').html('Paxful - $450');
+            $('.rates').html('ESDT - $450');
             countx = 2;
 
         } else if(countx == 2) {
-            $('.rates').html('Bitcoin - $465');
+            $('.rates').html('&nbsp; BTC - $465');
             countx = 1;
 
         }
 
     }
-    setInterval(transition, 1500);
+    setInterval(priceFlash, 1500);
 
     $('.toast').toast();
 
