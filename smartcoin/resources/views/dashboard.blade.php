@@ -192,7 +192,7 @@
                                                                 <div class="form-input">
                                                                     <label>Bank Icon</label>
                                                                     <div class="input-items">
-                                                                        <img src="{{ asset('img/ui/bank.jpg') }}" class="img-fluid rounded" alt="">
+                                                                        <img src="{{ asset('img/ui/bank.jpg') }}" class="img-fluid rounded bank-logo border" alt="">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -206,15 +206,10 @@
                                                                                     <label>Bank Name</label>
                                                                                     <div class="input-items active regular-icon-buttons">
                                                                                         <select>
-                                                                                            <option value="0">Access Bank</option>
-                                                                                            <option value="2">ALAT by Wema</option>
-                                                                                            <option value="3">Citibank Nigeria</option>
-                                                                                            <option value="4">Ecobank Nigeria</option>
-                                                                                            <option value="5">Econdo Microfinance Bank</option>
-                                                                                            <option value="6">ALAT by Wema</option>
-                                                                                            <option value="7">Citibank Nigeria</option>
-                                                                                            <option value="8">Ecobank Nigeria</option>
-                                                                                            <option value="9">Econdo Microfinance Bank</option>
+                                                                                            <option selected disabled value="000|{{ asset('img/ui/bank.jpg') }}">Select Bank</option>
+                                                                                            @foreach($banks as $bank)
+                                                                                            <option value="{{ $bank['code'] . '|' . $bank['logo'] }}">{{ $bank['name'] }}</option>
+                                                                                            @endforeach
                                                                                         </select>
                                                                                         <a href="#" class="regular-icon-light-two"><i class="lni-pencil-alt font-weight-bolder"></i></a>
                                                                                     </div>
@@ -382,54 +377,68 @@
     // Adjust Accordion to fit Bank Name Dropdown
     $(document).on('click.nice-select', '.nice-select', function() {
 
-        var list = $('.nice-select');
+        //Adjust Accordion Height
+        function adjustHeight() {
 
-        var container = list.parents('.collapse');
+            var list = $('.nice-select');
+            var container = list.parents('.collapse');
+            var card = container.children('.card-body');
 
-        var card = container.children('.card-body');
+            var listBottom = list.offset().top + list.height();
+            var containerBottom = container.offset().top + container.height();
+            var cardBottom = card.offset().top + card.height();
 
-        var listBottom = list.offset().top + list.height();
+            if($('.nice-select').hasClass('open')) {
 
-        var containerBottom = container.offset().top + container.height();
-
-        var cardBottom = card.offset().top + card.height();
-
-
-        if($('.nice-select').hasClass('open')) {
-
-            var diff = containerBottom - cardBottom;
-            
-            if(diff > 30) {
-                container.animate({
-                    height: container.height() - (diff - 32)
-
-                }, 100, function() {
-                    $('.grid-3').isotope('layout');
-
-                });
-            }
-
-        } else {
-
-            var diff = containerBottom - listBottom;
-
-            if(diff < 240) {
-                container.animate({
-                    height: container.height() + (240 - diff)
-
-                }, 100, function() {
-                    $('.grid-3').isotope('layout');
-
-                });
-
+                var diff = containerBottom - cardBottom;
                 
-            }
+                if(diff > 30) {
+                    container.animate({
+                        height: container.height() - (diff - 32)
+
+                    }, 100, function() {
+                        $('.grid-3').isotope('layout');
+
+                    });
+                }
+
+            } else {
+
+                var diff = containerBottom - listBottom;
+
+                if(diff < 240) {
+                    container.animate({
+                        height: container.height() + (240 - diff)
+
+                    }, 100, function() {
+                        $('.grid-3').isotope('layout');
+
+                    });
+                    
+                }
+            } 
         }
+
+        adjustHeight();
         
 
+        function updateLogo() {
+            $('.nice-select ul li').click(function() {
+                var dataValue = $(this).attr('data-value');
+                var splitDataValue = dataValue.split('|');
+                var url = splitDataValue[1];
+                
+                $(this).parents('.collapse').find('img.bank-logo').attr('src', url);
+
+                //alert(url);
+            });
+        }
+
+        updateLogo();
         
 
     });
+
 
     
 @endsection
