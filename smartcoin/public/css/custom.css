@@ -114,7 +114,7 @@
         border-color: #fc3832 !important;
     }
 
-    .danger-buttons .fileinput-exists.danger-two:hover {
+    .danger-buttons .fileinput-exists.danger-two.hoverable:hover {
         color: #fc3832 !important;
         background-color: transparent !important;
     }
@@ -125,25 +125,38 @@
         border-color: #4da422 !important;
     }
 
-    .success-buttons .fileinput-exists.success-two:hover {
+    .success-buttons .fileinput-exists.success-two.hoverable:hover {
         color: #4da422 !important;
         background-color: transparent !important;
     }
-    
 
-    .sdfsdf {
-        /* width: 40px;
-        height: 40px;
-        line-height: 36px;
-        text-align: center;
-        font-size: 24px; */
+    .light-rounded-buttons .fileinput-exists.light-rounded-two {
+        color: #fff !important;
+        background-color: #0067f4 !important;
+        border-color: #0067f4 !important;
     }
+
+    .light-rounded-buttons .fileinput-exists.light-rounded-two.hoverable:hover {
+        color: #0067f4 !important;
+        background-color: transparent !important;
+    }
+
+    .fileinput-exists.disabled {
+        opacity: 0.65;
+        cursor: default;
+    }
+    
 
     /* Jasny File Upload - Material Kit */
 
 
-input.editable {
+input.edit, .nice-select.edit {
     padding-right: 65px !important;
+}
+
+input:read-only, .nice-select.disabled {
+    background-color: rgba(164, 164, 164, 0.3) !important;
+    cursor: default !important;
 }
 
     /* Nice Select */
@@ -155,6 +168,7 @@ input.editable {
         border-color: #0067f4 !important;
         color: #121212 !important;
         font-size: 16px !important;
+        padding-left: 12px !important;
     }
 
     .custom-dropdown .input-items .nice-select-search-box input, .custom-dropdown .input-items li  {
@@ -171,6 +185,12 @@ input.editable {
         margin-right: 2rem;
     }
 
+    .custom-dropdown .input-items .nice-select.edit::after {
+        width: 8px;
+        height: 8px;
+        margin-right: 3.5rem;
+    }
+
     .nice-select li.option, .nice-select .current {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -182,6 +202,28 @@ input.editable {
         width: 100% !important;
     }
 
+
     /* Nice Select */
 
+
+.xs-btn {
+    line-height: 20px !important;
+    font-size: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.text-none {
+    text-transform: none;
+}
+
 /* Dashboard End */
+
+
+.hidden {
+    display: none;
+}
+
+
+/*  */
+

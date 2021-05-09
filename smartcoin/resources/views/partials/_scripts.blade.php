@@ -1,6 +1,7 @@
 <!--====== jquery js ======-->
 <script src="{{ asset('js/vendor/modernizr-3.6.0.min.js') }}"></script>
-<script src="{{ asset('js/vendor/jquery-1.12.4.min.js') }}"></script>
+<!-- <script src="{{ asset('js/vendor/jquery-1.12.4.min.js') }}"></script> -->
+<script src="{{ asset('js/jquery.min.js') }}"></script>
 
 <!--====== Bootstrap js ======-->
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -97,6 +98,30 @@
         // e.preventDefault();
         // alert('james');
         $(this).find('button[type="submit"]').prepend(`<i class="lni-spinner lni-spin-effect"></i> `).attr('disabled', true);
+    });
+
+
+    // Ajax Setup
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Extract CSRF Token
+        }
+    });
+
+    // Toastr JS for Alerts
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+    }
+
+
+    // WhatsApp Chat
+    $('.whatsapp-chat').click(function(e) {
+        e.preventDefault();
+        var countryCode = '234';
+        var phoneNumber = '8081273542';
+        var text = '%2ASmartCoin%2A+Website%0D%0A%0D%0AName%3A+%0D%0A%0D%0AMessage%3A+';
+        window.open('https://wa.me/' + countryCode + phoneNumber + '?' + 'text=' + text, '_blank');
     });
 
     @yield('custom_script')
