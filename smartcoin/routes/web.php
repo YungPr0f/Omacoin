@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use App\Models\Bank;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------

@@ -80,11 +80,11 @@
     function priceFlash() {
 
         if(countx == 1) {
-            $('.rates').html('ESDT - $450');
+            $('.rates').html('USDT - $450');
             countx = 2;
 
         } else if(countx == 2) {
-            $('.rates').html('&nbsp; BTC - $465');
+            $('.rates').html('&nbsp;&nbsp; BTC - $465');
             countx = 1;
 
         }
@@ -92,21 +92,27 @@
     }
     setInterval(priceFlash, 1500);
 
-    $('.toast').toast();
+    // $('.toast').toast();
 
+    // Jasny File Upload
+    $('.file-click').click(function() {
+        $(this).siblings('input[type="file"]').click();
+    });
+
+
+    // Loading Icon on Submit
     $('form[method="POST"]').submit(function() {
-        // e.preventDefault();
-        // alert('james');
         $(this).find('button[type="submit"]').prepend(`<i class="lni-spinner lni-spin-effect"></i> `).attr('disabled', true);
     });
 
 
-    // Ajax Setup
+    // Ajax CSRF Setup
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Extract CSRF Token
         }
     });
+
 
     // Toastr JS for Alerts
     toastr.options = {
@@ -123,6 +129,80 @@
         var text = '%2ASmartCoin%2A+Website%0D%0A%0D%0AName%3A+%0D%0A%0D%0AMessage%3A+';
         window.open('https://wa.me/' + countryCode + phoneNumber + '?' + 'text=' + text, '_blank');
     });
+
+
+    // Alert Messages
+    @if(Session::has('error'))
+        toastr.error(`{{ Session::get('error') }}`);
+    @endif
+
+    @if(Session::has('success'))
+        toastr.success(`{{ Session::get('success') }}`);
+    @endif
+
+
+    // Countdown Timer
+    function countdownTimer(counter, time) {
+
+        // Set the date we're counting down to
+        var countDownDate = new Date(new Date().getTime() + time).getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+                
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+                
+            // Time calculations for minutes and seconds
+            // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if(minutes < 10) {
+                minutes = '0' + minutes;
+            }
+            
+            if(seconds < 10) {
+                seconds = '0' + seconds;
+            }
+                
+            // Output the result in counter
+            counter.html(minutes + ":" + seconds);
+                
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+
+                counter.parents('.light-rounded-buttons').addClass('hidden').siblings().removeClass('hidden');
+                
+                counter.html("EXPIRED");
+            }
+
+        }, 1000);
+
+    }
+
+
+    $('span.countdown-timer').each(function() {
+        var counter = $(this);
+        var mm = counter.attr('data-mm'); // time in minutes
+        mm = mm || 0; // Cast undefined to zero
+
+        var ss = counter.attr('data-ss'); // time in seconds
+        ss = ss || 0; //Cast undefined to zero
+
+        var time = mm * 60000 + ss * 1000;
+
+        countdownTimer(counter, time);
+
+    });
+
+        
+
 
     @yield('custom_script')
 

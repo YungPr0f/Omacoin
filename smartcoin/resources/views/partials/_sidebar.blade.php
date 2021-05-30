@@ -16,8 +16,12 @@
         </div> <!-- menu -->
         <div class="light-rounded-buttons d-inline-block d-block mr-50 px-3  w-100">
             <ul>
-                <li><a class="main-btn light-rounded-one sm-btn light d-block" href="#">Sign In</a></li>
-                <li><a class="main-btn light-rounded-two sm-btn solid " href="#">Sign Up</a></li>
+                @auth
+                <li><a class="main-btn light-rounded-one sm-btn light" href="{{ route('dashboard') }}">My Dashboard</a></li>
+                @else
+                <li><a class="main-btn light-rounded-one sm-btn light" href="{{ route('login') }}">Sign In</a></li>
+                <li><a class="main-btn light-rounded-two sm-btn solid" href="{{ route('register') }}">Sign Up</a></li>
+                @endauth
             </ul>
         </div>
         <!-- <div class="sidebar-social d-flex align-items-center justify-content-center">

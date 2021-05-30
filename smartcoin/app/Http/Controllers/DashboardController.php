@@ -27,7 +27,9 @@ class DashboardController extends Controller
         //
         $userbank = Bank::where('id', Auth::user()->bank_id)->first();
         $banks = Bank::all();
-        return view('dashboard')->withBanks($banks)->withUserbank($userbank);
+
+        $users = User::all();
+        return view('dashboard')->withBanks($banks)->withUserbank($userbank)->withUsers($users);
     }
 
     public function profile_update(Request $request) {

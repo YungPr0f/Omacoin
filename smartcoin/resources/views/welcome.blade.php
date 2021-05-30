@@ -18,15 +18,15 @@
                         <div class="action-btn rounded-buttons">
                             <a href="#" class="main-btn rounded-two">Sell Now</a>
                         </div>
-                    </div> <!-- call action content -->
+                    </div>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
                     <div class="call-action-content mt-50">
                         <img src="{{ asset('images/call-to-action/call-to-action.png') }}" alt="call to action">
-                    </div> <!-- call action content -->
+                    </div>
                 </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
+            </div>
+        </div>
     </section>
 
     <section class="features-area features-one pb-5">
@@ -34,12 +34,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section-title text-center pb-10">
-                        <!-- <h5 class="title">Why Our Customers Love Us</h5> -->
                         <h3 class="mb-0">Why Our Customers Love Us</h3>
                         <p class="text mt-2">***Fast and reliable transactions***</p>
-                    </div> <!-- row -->
+                    </div>
                 </div>
-            </div> <!-- row -->
+            </div>
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 col-sm-9">
                     <div class="single-features text-center mt-40">
@@ -50,11 +49,8 @@
                         <div class="features-content">
                             <h4 class="features-title"><a href="#">Easy to Use</a></h4>
                             <p class="text">A simple interface with easy navigation that offers a seamless trading experience</p>
-                            <div class="features-btn rounded-buttons">
-                                <!-- <a class="main-btn rounded-one" href="#">KNOW MORE</a> -->
-                            </div>
                         </div>
-                    </div> <!-- single features -->
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-9">
                     <div class="single-features text-center mt-40">
@@ -65,11 +61,8 @@
                         <div class="features-content">
                             <h4 class="features-title"><a href="#">Fast Payment</a></h4>
                             <p class="text">Sell your coins fast. No more delays in payment.</p>
-                            <div class="features-btn rounded-buttons">
-                                <!-- <a class="main-btn rounded-one" href="#">KNOW MORE</a> -->
-                            </div>
                         </div>
-                    </div> <!-- single features -->
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-9">
                     <div class="single-features text-center mt-40">
@@ -80,14 +73,11 @@
                         <div class="features-content">
                             <h4 class="features-title"><a href="#">Safe & Secure</a></h4>
                             <p class="text">We provide the best security to help keep our users safe on the internet.</p>
-                            <div class="features-btn rounded-buttons">
-                                <!-- <a class="main-btn rounded-one" href="#">KNOW MORE</a> -->
-                            </div>
                         </div>
-                    </div> <!-- single features -->
+                    </div>
                 </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
+            </div>
+        </div>
     </section>
 
     <section class="features-area features-five pb-5">
@@ -96,30 +86,30 @@
                 <div class="col-lg-8">
                     <div class="section-title text-center pb-10">
                         <h3 class="title">Get started in 3 simple steps</h3>
-                    </div> <!-- section title -->
+                    </div>
                 </div>
-            </div> <!-- row -->
+            </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 1</a></h4>
                         <p class="text">Register a free account with us to get your powerful SmartCoin dedicated wallet address.</p>
-                    </div> <!-- single features -->
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 2</a></h4>
                         <p class="text">After registration, log into your SmartCoin account to add your bank account details for automated withdrawals.</p>
-                    </div> <!-- single features -->
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 3</a></h4>
                         <p class="text">Send bitcoin or paxful to your SmartCoin dedicated wallet address and get paid in Naira instantly.</p>
-                    </div> <!-- single features -->
+                    </div>
                 </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
+            </div>
+        </div>
     </section>
 
     <section class="testimonial-two">
@@ -128,9 +118,9 @@
                 <div class="col-lg-6">
                     <div class="section-title pb-20 text-center">
                         <h3 class="title">What Our Customers Say</h3>
-                    </div> <!-- section title -->
+                    </div>
                 </div>
-            </div> <!-- row -->
+            </div>
             
             <div class="row testimonial-two-active">
                 <div class="col-lg-4">
@@ -147,7 +137,7 @@
                         <div class="testimonial-text">
                             <p class="text">Very fast, reliable and efficient service. Thank you SmartCoin for your fast online assistance and fast payments.</p>
                         </div>
-                    </div> <!-- single testimonial -->
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-testimonial mt-30">
@@ -163,7 +153,7 @@
                         <div class="testimonial-text">
                             <p class="text">This website is very reliable and fast. I got my money in less than 3 min after sending my bitcoins to them.</p>
                         </div>
-                    </div> <!-- single testimonial -->
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-testimonial mt-30">
@@ -179,7 +169,7 @@
                         <div class="testimonial-text">
                             <p class="text">The service was fast and easy to use, i got payment in minutes this is the fastest exchange i have done so far</p>
                         </div>
-                    </div> <!-- single testimonial -->
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-testimonial mt-30">
@@ -195,7 +185,7 @@
                         <div class="testimonial-text">
                             <p class="text">Very fast, reliable and efficient service. Thank you SmartCoin for your fast online assistance and fast payments.</p>
                         </div>
-                    </div> <!-- single testimonial -->
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-testimonial mt-30">
@@ -211,7 +201,7 @@
                         <div class="testimonial-text">
                             <p class="text">This website is very reliable and fast. I got my money in less than 3 min after sending my bitcoins to them.</p>
                         </div>
-                    </div> <!-- single testimonial -->
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-testimonial mt-30">
@@ -227,10 +217,10 @@
                         <div class="testimonial-text">
                             <p class="text">The service was fast and easy to use, i got payment in minutes this is the fastest exchange i have done so far</p>
                         </div>
-                    </div> <!-- single testimonial -->
+                    </div>
                 </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
+            </div>
+        </div>
     </section>
 
 @endsection

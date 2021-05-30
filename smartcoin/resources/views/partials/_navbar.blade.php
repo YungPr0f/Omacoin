@@ -1,5 +1,4 @@
 <section class="navbar-area navbar-six navbar-two fixed-top" style="border-bottom: 5px solid black;">
-    <!-- <div class="container"> -->
     <div class="pl-20 pr-20">
         <div class="row">
             <div class="col-lg-12">
@@ -14,51 +13,16 @@
                     </div>
                     <img src="{{ asset('img/logo/smartcoin.png') }}" width="70px" class="img-fluid d-lg-none d-inline-block pl-30 mr-auto" alt="SmartCoin">
 
-                    
-                    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTwo" aria-controls="navbarTwo" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="toggler-icon"></span>
-                        <span class="toggler-icon"></span>
-                        <span class="toggler-icon"></span>
-                    </button> -->
-                    
-
                     <div class="collapse navbar-collapse sub-menu-bar ml-auto" id="navbarTwo">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a class="active" href="/">HOME</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#">ABOUT US</a>
-                            </li>
-                            <!-- <li class="nav-item">
-                                <a class="active" href="#">ABOUT</a>
-                                
-                                <ul class="sub-menu">
-                                    <li><a href="#">MENU ITEM 1</a></li>
-                                    <li><a href="#">MENU ITEM 2 <i class="lni-chevron-right"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">SUB MENU 1</a></li>
-                                            <li><a href="#">SUB MENU 2</a></li>
-                                            <li><a href="#">SUB MENU 3</a></li>
-                                            <li><a href="#">SUB MENU 4</a></li>
-                                            <li><a href="#">SUB MENU 5</a></li>
-                                            <li><a href="#">SUB MENU 6</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">MENU ITEM 3</a></li>
-                                    <li><a href="#">MENU ITEM 4</a></li>
-                                    <li><a href="#">MENU ITEM 5</a></li>
-                                    <li><a href="#">MENU ITEM 6</a></li>
-                                </ul>
-                            </li> -->
-                            <!-- <li class="nav-item">
-                                <a href="#">SERVICES</a>
+                                <a href="#about">ABOUT</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#">RESOURCES</a>
-                            </li> -->
-                            <li class="nav-item">
-                                <a href="#">CONTACT</a>
+                                <a href="#contact">CONTACT</a>
                             </li>
                         </ul>
                     </div>
@@ -66,7 +30,21 @@
                     <div class="navbar-btn d-none d-xl-inline-block mr-50">
                         <ul>
                             @auth
-                            <li><a class="light" href="{{ route('dashboard') }}">Welcome, {{ Auth::user()->surname }}</a></li>
+                                @if(Route::currentRouteName() == 'dashboard' || Route::currentRouteName() == 'admin')
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    
+                                    <div class="form-input danger-buttons">
+                                        <button type="submit" class="main-btn danger-one">{{ __('Logout') }}</button>
+                                    </div>
+                                </form>
+                                @else
+                                    @if(Auth::user()->role == 'admin')
+                                    <li><a class="light" href="{{ route('dashboard') }}">Admin Panel</a></li>
+                                    @else
+                                    <li><a class="light" href="{{ route('dashboard') }}">My Dashboard</a></li>
+                                    @endif
+                                @endif
                             @else
                             <li><a class="light" href="{{ route('login') }}">Sign In</a></li>
                             <li><a class="solid" href="{{ route('register') }}">Sign Up</a></li>
@@ -74,7 +52,7 @@
                         </ul>
                     </div>
                     <div class="semi-rounded-buttons d-inline-block ml-auto">
-                        <a class="main-btn semi-rounded-one sm-btn rates" href="#" style="line-height: 0;">Bitcoin - $465</a>
+                        <a class="main-btn semi-rounded-one sm-btn rates" href="#" style="line-height: 0;"><i class="lni-spinner spin-effect"></i></a>
                     </div>
                     <!-- <ul>
                         <li><a href="#" class="main-btn light-rounded-three sm-btn">DOWNLOAD NOW</a></li>
@@ -86,5 +64,4 @@
             </div>
         </div> <!-- row -->
     </div>
-    <!-- </div> container -->
 </section>

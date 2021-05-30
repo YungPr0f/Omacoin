@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/material-kit.css') }}">
 @endsection
 
-@section('title', 'SmartCoin | Dashboard')
+@section('title', 'SmartCoin | ' . (Auth::user()->role == 'admin' ? 'Admin Panel' : 'My Dashboard') )
 
 @section('content')
 
@@ -16,126 +16,38 @@
                         <ul class="nav nav-justified">
                             <li data-filter=".profile" class="nav-item active">PROFILE</li>
                             <li data-filter=".transactions" class="nav-item">TRANSACTIONS</li>
+                            @if(Auth::user()->role == 'admin')
+                            <li data-filter=".wallets" class="nav-item">WALLETS</li>
+                            <li data-filter=".users" class="nav-item">USERS</li>
+                            @endif
                             <li data-filter=".reviews" class="nav-item">REVIEWS</li>
                         </ul>
-                    </div> <!-- portfolio menu -->
+                    </div>
                 </div>
-            </div> <!-- row -->
+            </div>
             <div class="row grid-3">
                 <div class="col-12 profile">
                     @include('partials.dashboard._profile')
                 </div>
                 <div class="col-12 transactions d-none">
-                    <div class="single-portfolio border border-primary p-4">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="table-box">
-                                    <div class="table-style table-responsive style-two">
-                                        <table class="table striped">
-                                            <thead class="table-thead container">
-                                                <tr>
-                                                    <th>Txn ID</th>
-                                                    <th>Transaction Details</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th style="width:1%;">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-tbody">
-                                                <tr>
-                                                    <td>Row 1 Column 1</td>
-                                                    <td>Row 1 Column 2</td>
-                                                    <td>Row 1 Column 3</td>
-                                                    <td>Row 1 Column 4</td>
-                                                    <td>
-                                                        <div class="light-rounded-buttons danger-buttons">
-                                                            <ul>
-                                                                <li class="mt-0"><a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal">Processing</a></li>
-                                                            </ul>
-                                                            <!-- <ul>
-                                                                <li><a href="#" class="main-btn danger-five xs-btn"> <span><i class="lni-cloud-download"></i></span> DOWNLOAD NOW</a></li>
-                                                            </ul> -->
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Row 1 Column 1gggggggggggggggggggggggggg</td>
-                                                    <td>Row 1 Column 2</td>
-                                                    <td>Row 1 Column 3</td>
-                                                    <td>Row 1 Column 4</td>
-                                                    <td>Row 1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Row 1 Column 1</td>
-                                                    <td>Row 1 Column 2</td>
-                                                    <td>Row 1 Column 3</td>
-                                                    <td>Row 1 Column 4</td>
-                                                    <td>Row 1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Row 1 Column 1</td>
-                                                    <td>Row 1 Column 2</td>
-                                                    <td>Row 1 Column 3</td>
-                                                    <td>Row 1 Column 4</td>
-                                                    <td>Row 1</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- table-style -->
-                                </div> <!-- table-box -->
-                            </div>
-                        </div>
-                    </div>
+                    @include('partials.dashboard._transactions')
                 </div>
+                @if(Auth::user()->role == 'admin')
+                <div class="col-12 wallets d-none">
+                    @include('partials.dashboard._wallets')
+                </div>
+                <div class="col-12 users d-none">
+                    @include('partials.dashboard._users')
+                </div>
+                @endif
                 <div class="col-12 reviews d-none">
                     <div class="single-portfolio border border-primary p-4">
                         REVIEWS
-                    </div> <!-- single portfolio -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-
-
-
-
-    <!-- <section class="pt-50 mt-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="jumbotron">
-                        <h1 class="display-4">Hello, {{ Auth::user()->surname . ' ' . Auth::user()->firstname }}!</h1>
-                        <p class="lead">You are now logged in to your dashboard</p>
-                        <div class="row justify-content-end">
-                            <div class="col-4 col-md-2">
-                                <div class="contact-form form-style-one mt-35">
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        
-                                        <div class="form-input danger-buttons mt-20">
-                                            <button type="submit" class="main-btn danger-one w-100">{{ __('Logout') }}</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <hr class="my-4">
-                        <p class="lead text-center">Website Under Construction. New Features Coming Soon</p>
-                        <section class="coming-soon-area coming-soon-one d-flex align-items-center pt-90 pb-100 bg_cover mt-50 mb-100" style="background-image: url({{ asset('img/bg/underconstruction01.jpg') }})">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8">
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
                     </div>
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
 @endsection
 
@@ -144,18 +56,80 @@
     <script src="{{asset('js/image/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/image/plugins/jasny-bootstrap.min.js')}}"></script>
     <script src="{{asset('js/image/material-kit.min.js')}}" type="text/javascript"></script>
-    <!-- <script src="{{asset('js/jquery.or.js')}}" type="text/javascript"></script> -->
 
 @endsection
 
 
 @section('custom_script')
 
-    $('.file-click').click(function() {
-        $(this).siblings('input[type="file"]').click();
+    // Show only first filter on load NOT All
+    var firstLi = $('.portfolio-menu-3').find('li').first();
+    var dataFilter = firstLi.attr('data-filter');
+
+    $('.grid-3').isotope({
+        filter: dataFilter
+    }).children().removeClass('d-none');
+
+    $('.grid-3 [data-toggle="collapse"]').click(function () {
+        var id = $(this).attr('href');
+
+        $(id).on('shown.bs.collapse hidden.bs.collapse', function() {
+            $('.grid-3').isotope('layout');
+            
+        });
     });
 
+    // Adjust Accordion to fit Bank Name Dropdown
+    $(document).on('click.nice-select', '.nice-select', function() {
 
+        //Adjust Accordion Height
+        function adjustHeight() {
+
+            var list = $('.nice-select');
+            var container = list.parents('.collapse');
+            var card = container.children('.card-body');
+
+            var listBottom = list.offset().top + list.height();
+            var containerBottom = container.offset().top + container.height();
+            var cardBottom = card.offset().top + card.height();
+
+            if($('.nice-select').hasClass('open')) {
+
+                var diff = containerBottom - cardBottom;
+                
+                if(diff > 30) {
+                    container.animate({
+                        height: container.height() - (diff - 32)
+
+                    }, 100, function() {
+                        $('.grid-3').isotope('layout');
+
+                    });
+                }
+
+            } else {
+
+                var diff = containerBottom - listBottom;
+
+                if(diff < 240) {
+                    container.animate({
+                        height: container.height() + (240 - diff)
+
+                    }, 100, function() {
+                        $('.grid-3').isotope('layout');
+
+                    });
+                    
+                }
+            } 
+        }
+
+        adjustHeight();
+        
+
+    });
+
+    // Update Profile Photo
     $('ul.save').click(function() {
 
         var field = $(this).parents('.form-group');
@@ -267,82 +241,7 @@
 
     });
 
-
-
-    // Show only first filter on load NOT All
-    var firstLi = $('.portfolio-menu-3').find('li').first();
-    var dataFilter = firstLi.attr('data-filter');
-
-    $('.grid-3').isotope({
-        filter: dataFilter
-    }).children().removeClass('d-none');
-
-    $('.grid-3 [data-toggle="collapse"]').click(function () {
-        var id = $(this).attr('href');
-
-        $(id).on('shown.bs.collapse hidden.bs.collapse', function() {
-            $('.grid-3').isotope('layout');
-            
-        });
-
-        
-    });
-
-
-    // Adjust Accordion to fit Bank Name Dropdown
-    $(document).on('click.nice-select', '.nice-select', function() {
-
-        //Adjust Accordion Height
-        function adjustHeight() {
-
-            var list = $('.nice-select');
-            var container = list.parents('.collapse');
-            var card = container.children('.card-body');
-
-            var listBottom = list.offset().top + list.height();
-            var containerBottom = container.offset().top + container.height();
-            var cardBottom = card.offset().top + card.height();
-
-            if($('.nice-select').hasClass('open')) {
-
-                var diff = containerBottom - cardBottom;
-                
-                if(diff > 30) {
-                    container.animate({
-                        height: container.height() - (diff - 32)
-
-                    }, 100, function() {
-                        $('.grid-3').isotope('layout');
-
-                    });
-                }
-
-            } else {
-
-                var diff = containerBottom - listBottom;
-
-                if(diff < 240) {
-                    container.animate({
-                        height: container.height() + (240 - diff)
-
-                    }, 100, function() {
-                        $('.grid-3').isotope('layout');
-
-                    });
-                    
-                }
-            } 
-        }
-
-        adjustHeight();
-        
-
-    });
-
-
-
     // Update Fields
-
     $('.edit').on('click', function(e) {
         e.preventDefault();
 
@@ -511,12 +410,12 @@
 
 
     });
+    
+    // Update Password Modal
+    $('#passwordButton').click(function(e) {
+        e.preventDefault();
 
-
-    $('#passwordButton').click(function() {
-        
         var field = $(this).parents('.form-input');
-
         $(this).parent().append(`
             <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -643,9 +542,4 @@
 
     });
 
-    // $('.modal').modal();
-
-
-
-    
 @endsection
