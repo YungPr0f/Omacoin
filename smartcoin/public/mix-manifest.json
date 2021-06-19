@@ -2,5 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/toastr.min.css": "/css/toastr.min.css",
-    "/js/toastr.min.js": "/js/toastr.min.js"
+    "/js/toastr.min.js": "/js/toastr.min.js",
+    "/css/animate.min.css": "/css/animate.min.css",
+    "/js/wallet-address-validator.min.js": "/js/wallet-address-validator.min.js"
 }

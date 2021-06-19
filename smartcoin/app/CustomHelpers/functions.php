@@ -1,5 +1,7 @@
 <?php
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 // Timeago Function
 function timeago( $ptime )
 {
@@ -31,6 +33,47 @@ function timeago( $ptime )
             return $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago';
         }
     }
+}
+
+
+
+// Wallet QR Code Function
+function walletQR($address, $filepath)
+{
+    QrCode::format('png')->size(1000)->merge('/public/img/logo/smartcoin2.png', .25)->errorCorrection('H')->generate($address, $filepath);
+
+    return true;
+}
+
+
+function currencies() {
+    $currencies = [
+        "BTC" => [
+            "name" => "Bitcoin",
+            "icon" => "btc.png"
+        ],
+        "ETH" => [
+            "name" => "Ethereum",
+            "icon" => "eth.png"
+        ],
+        "USDT" => [
+            "name" => "Tether",
+            "icon" => "usdt.png"
+        ],
+        "DOGE" => [
+            "name" => "Dogecoin",
+            "icon" => "doge.png"
+        ]
+    ];
+
+    return $currencies;
+}
+
+
+function platforms() {
+    $platforms = ['Paxful', 'Blockchain', 'Binance'];
+
+    return $platforms;
 }
 
 ?>

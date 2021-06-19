@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Bank;
 use App\Models\User;
+use App\Models\Wallet;
 use Auth;
 use Validator;
 use Hash;
@@ -26,10 +27,16 @@ class DashboardController extends Controller
     {
         //
         $userbank = Bank::where('id', Auth::user()->bank_id)->first();
+        
         $banks = Bank::all();
-
         $users = User::all();
-        return view('dashboard')->withBanks($banks)->withUserbank($userbank)->withUsers($users);
+        $wallets = Wallet::all();
+
+        $currencies = currencies();
+        $platforms = platforms();
+
+        return view('dashboard')->withBanks($banks)->withUserbank($userbank)->withUsers($users)
+            ->withCurrencies($currencies)->withPlatforms($platforms)->withWallets($wallets);
     }
 
     public function profile_update(Request $request) {
@@ -109,7 +116,7 @@ class DashboardController extends Controller
 
             } else {
 
-                // return response()->json(['success'=>'Update Successful', 'data'=>$request->account_number]);
+                // return response()->json(['success'=>'Update successful', 'data'=>$request->account_number]);
 
                 $user->$fieldname = $request->$fieldname; // Set corresponding user's data to provided request [POST] data
 
@@ -119,7 +126,7 @@ class DashboardController extends Controller
 
 
             $user->save(); // Save Changes to Database
-            return response()->json(['success'=>'Update Successful', 'data'=>$data]); // Send Success Response + Data in JSON Format to the View
+            return response()->json(['success'=>'Update successful', 'data'=>$data]); // Send Success Response + Data in JSON Format to the View
             
         }
         

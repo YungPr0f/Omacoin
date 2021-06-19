@@ -58,9 +58,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- card -->
+                        </div>
                     </div>
-                </div> <!-- card -->
+                </div>
             </div>
         </div>
         <div class="col-lg-5 col-md-8 mb-2 mb-lg-0">
@@ -324,7 +324,7 @@
                                                             </span>
                                                         </div>
                                                     </form>
-                                                </div> <!-- form input -->
+                                                </div>
                                             </div>
 
                                             <div class="col-lg-4">
@@ -343,7 +343,7 @@
                                                             </span>
                                                         </div>
                                                     </form>
-                                                </div> <!-- form input -->
+                                                </div>
                                             </div>
                                             
                                             <div class="col-lg-4">
@@ -362,9 +362,9 @@
                                                             </span>
                                                         </div>
                                                     </form>
-                                                </div> <!-- form input -->
+                                                </div>
                                             </div>
-                                        </div> <!-- row -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -397,7 +397,7 @@
                                                                 
                                                                 <label>Bank Name</label>
                                                                 <div class="input-items active regular-icon-buttons" style="height:24px">
-                                                                    <select disabled name="bank_id">
+                                                                    <select disabled name="bank_id" class="bank">
                                                                         
                                                                         @foreach($banks as $bank)
                                                                             @if($bank->id == 1)
@@ -418,7 +418,7 @@
                                                                     </span>
                                                                 </div>
                                                             </form>
-                                                        </div> <!-- form input -->
+                                                        </div>
                                                     </div>
                                                     
                                                     <div class="col-12 col-lg-6">

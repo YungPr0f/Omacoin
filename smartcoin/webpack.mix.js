@@ -16,4 +16,6 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('tailwindcss'),
     require('autoprefixer'),
 ]).copy('node_modules/toastr/build/toastr.min.css', 'public/css/toastr.min.css')
-.copy('node_modules/toastr/build/toastr.min.js', 'public/js/toastr.min.js');
+.copy('node_modules/toastr/build/toastr.min.js', 'public/js/toastr.min.js')
+.copy('node_modules/animate.css/animate.min.css', 'public/css/animate.min.css')
+.copy('node_modules/multicoin-address-validator/dist/wallet-address-validator.min.js', 'public/js/wallet-address-validator.min.js');

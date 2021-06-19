@@ -3,3 +3,40 @@ Wallets / Wallet ID
 binance - bitcoin
 paxful - bitcoin
 USBT - bitcoin
+
+
+
+
+Paxful
+BTC
+3PYiLU3Bv5prf65wspZngngKt5E4ih32VM
+
+
+Paxful
+Usdt
+0x5AF01DF4a7fA1F81262A0B89940479A21b4569e7
+
+
+Paxful
+Ethereum
+0x5AF01DF4a7fA1F81262A0B89940479A21b4569e7
+
+
+Binance
+Btc
+1MQxRwe8dpsoD6875RCLe5VeoX8Qdfj73X
+
+
+Binance
+Usdt
+0x600e1b4cd97a48eb62aaebbe062c5c83a28198e6
+
+
+BLOCKCHAIN
+Btc
+1GdLqHLCTadpnCQp4Nb6UrLaJ5GupYKdPL
+
+
+Binance
+Doge
+DPKQB6cAbP9GMoPejQh8RJDtkhje4Rk43A

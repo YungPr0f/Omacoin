@@ -77,6 +77,11 @@
     opacity: 1;
 }
 
+.toast ul.multiple {
+    list-style-type: disc;
+    margin-left: 1rem;
+}
+
 /* Toastr End */
 
 
@@ -169,10 +174,19 @@ input:read-only, .nice-select.disabled {
         width: 100%;
         height: 44px;
         border: 2px solid;
-        border-color: #0067f4 !important;
-        color: #121212 !important;
+        border-color: #a4a4a4 !important;
+        color: #6c6c6c !important;
         font-size: 16px !important;
         padding-left: 12px !important;
+    }
+
+    .custom-dropdown .input-items .nice-select:focus {
+        border-color: #0067f4 !important;
+    }
+
+    .custom-dropdown .input-items .nice-select.disabled, .custom-dropdown .input-items .nice-select.edit {
+        border-color: #0067f4 !important;
+        color: #121212 !important;
     }
 
     .custom-dropdown .input-items .nice-select-search-box input, .custom-dropdown .input-items li  {
@@ -186,6 +200,10 @@ input:read-only, .nice-select.disabled {
     .custom-dropdown .input-items .nice-select::after {
         width: 8px;
         height: 8px;
+        margin-right: 0.25rem;
+    }
+
+    .custom-dropdown .input-items .nice-select.bank::after {
         margin-right: 2rem;
     }
 
@@ -207,14 +225,28 @@ input:read-only, .nice-select.disabled {
     }
 
 
+    select.required {
+        display: block !important;
+		margin: 0;
+		border: 0;
+		padding: 0;
+		height: 1px;
+		opacity: 0;
+		position: relative;
+		/* Top should be the same as the height of your */
+		/* unfocused, nice select replacement element! */
+		top: 44px;
+    }
+
+
     /* Nice Select */
 
 
 .xs-btn {
     line-height: 20px !important;
     font-size: 12px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 14px;
+    padding-right: 14px;
 }
 
 .text-none {
@@ -364,3 +396,36 @@ dl.dl-horizontal dd.line-break {
 
 /*  */
 
+.field-border {
+    border: 2px solid #a4a4a4 !important;
+    border-radius: 5px !important;
+}
+
+
+/* Disabled Buttons */
+
+.light-rounded-buttons.disabled:hover {
+    cursor: default !important;
+}
+
+.light-rounded-two.disabled:hover {
+    color: #fff !important;
+    background-color: #0067f4 !important;
+    border-color: #0067f4 !important;
+    cursor: default;
+}
+
+.success-two.disabled:hover {
+    color: #fff !important;
+    background-color: #4da422 !important;
+    border-color: #4da422 !important;
+    cursor: default;
+}
+
+.qr-preview img {
+    padding: 12px !important;
+}
+
+.no-icon.form-style-two .form-input .input-items input, .no-icon.form-style-two .form-input .input-items textarea {
+    padding-right: 12px !important;
+}

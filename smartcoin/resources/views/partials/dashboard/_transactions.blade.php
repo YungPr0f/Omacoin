@@ -61,15 +61,15 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons light-rounded-buttons">
-                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-spinner lni-spin-effect mr-1"></i>    
+                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-spinner lni-spin-effect mr-2"></i>    
                                             Please wait ... <span class="countdown-timer" data-mm="" data-ss="10">00:00</span>
                                         </a>
                                     </div>
 
                                     <div class="light-rounded-buttons danger-buttons hidden">
-                                        <a href="#" class="main-btn danger-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-cross-circle d-inline-block mr-1 font-weight-bold"></i>
+                                        <a href="#" class="main-btn danger-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-cross-circle d-inline-block mr-2"></i>
                                             Cancel Request
                                         </a>
                                     </div>
@@ -121,8 +121,8 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons info-buttons">
-                                        <a href="#" class="main-btn info-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-search mr-1"></i>    
+                                        <a href="#" class="main-btn info-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-search mr-2"></i>    
                                             Review Receipt
                                         </a>
                                     </div>
@@ -173,8 +173,8 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons">
-                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-credit-cards d-inline-block mr-1 font-weight-bold"></i>
+                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-credit-cards d-inline-block mr-2"></i>
                                             Process Payment
                                         </a>
                                     </div>
@@ -227,8 +227,8 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons success-buttons">
-                                        <a href="#" class="main-btn success-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-check-mark-circle mr-1"></i>
+                                        <a href="#" class="main-btn success-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-check-mark-circle mr-2"></i>
                                             Confirm Payment
                                         </a>
                                     </div>
@@ -306,8 +306,8 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons info-buttons">
-                                        <a href="#" class="main-btn info-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-upload d-inline-block mr-1 font-weight-bold"></i>
+                                        <a href="#" class="main-btn info-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-upload d-inline-block mr-2"></i>
                                             Upload Receipt
                                         </a>
                                     </div>
@@ -359,8 +359,8 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons light-rounded-buttons">
-                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-check-box mr-1" Preferred Bank></i>    
+                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-check-box mr-2" Preferred Bank></i>    
                                             Select Bank Info
                                         </a>
                                     </div>
@@ -411,15 +411,15 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons light-rounded-buttons">
-                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-spinner lni-spin-effect mr-1"></i>    
+                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-spinner lni-spin-effect mr-2"></i>    
                                             Please wait ... <span class="countdown-timer" data-mm="" data-ss="10">00:00</span>
                                         </a>
                                     </div>
 
                                     <div class="light-rounded-buttons warning-buttons hidden">
-                                        <a href="#" class="main-btn warning-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-support d-inline-block mr-1 font-weight-bold"></i>
+                                        <a href="#" class="main-btn warning-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-support d-inline-block mr-2"></i>
                                             Contact Support
                                         </a>
                                     </div>
@@ -472,8 +472,8 @@
                                 </td>
                                 <td>
                                     <div class="light-rounded-buttons success-buttons">
-                                        <a href="#" class="main-btn success-two xs-btn text-none font-weight-normal w-100">
-                                            <i class="lni-check-mark-circle mr-1"></i>
+                                        <a href="#" class="main-btn success-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center justify-content-center">
+                                            <i class="lni-check-mark-circle mr-2"></i>
                                             Confirm Received
                                         </a>
                                     </div>
