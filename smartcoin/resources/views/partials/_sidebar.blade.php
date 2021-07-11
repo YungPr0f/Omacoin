@@ -1,4 +1,4 @@
-<div class="sidebar-left pt-125">
+<div class="sidebar-left pt-125 d-md-none">
     <div class="sidebar-close">
         <a class="close" href="#close"><i class="lni-close"></i></a>
     </div>

@@ -24,9 +24,8 @@ Route::get('/', function () {
 });
 
 
-
 Route::get('/qr', function() {
-    walletQR('12345', public_path('img/ui/qrtest.png'));
+    // walletQR('12345', public_path('img/ui/qrtest.png'));
     // return QrCode::size(1000)->generate('boy');
     // echo '<img src="data:image/png;base64,' . base64_encode(QrCode::format('png')->size(500)->merge('/public/img/logo/smartcoin2.png', .25)->errorCorrection('H')->generate('boy')) .'">';=
     // walletQR('3LfV7Zna8gG6SGUrWLaGkLHjpVcbiX7rnW', '../public/img/wallets/qrcode1.png');

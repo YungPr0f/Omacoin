@@ -4,5 +4,9 @@
     "/css/toastr.min.css": "/css/toastr.min.css",
     "/js/toastr.min.js": "/js/toastr.min.js",
     "/css/animate.min.css": "/css/animate.min.css",
-    "/js/wallet-address-validator.min.js": "/js/wallet-address-validator.min.js"
+    "/css/OverlayScrollbars.min.css": "/css/OverlayScrollbars.min.css",
+    "/js/jquery.overlayScrollbars.min.js": "/js/jquery.overlayScrollbars.min.js",
+    "/js/wallet-address-validator.min.js": "/js/wallet-address-validator.min.js",
+    "/tinymce/tinymce.min.js": "/tinymce/tinymce.min.js",
+    "/js/loadingoverlay.min.js": "/js/loadingoverlay.min.js"
 }

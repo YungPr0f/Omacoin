@@ -35,6 +35,12 @@
 <!--====== CountDown js ======-->
 <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
 
+<!--====== Custom Scrollbar js ======-->
+<script src="{{ asset('js/jquery.overlayScrollbars.min.js') }}"></script>
+
+<!--====== Loading Overlay js ======-->
+<script src="{{ asset('js/loadingoverlay.min.js') }}"></script>
+
 <!--====== Main js ======-->
 <script src="{{ asset('js/main.js') }}"></script>
 
@@ -205,8 +211,66 @@
 
     });
 
-        
 
+    // $("body, textarea").overlayScrollbars({
+    //     // className : "os-theme-dark",
+    //     // resize : "both",
+    //     // sizeAutoCapable : true,
+    //     // paddingAbsolute : true,
+    //     // scrollbars : {
+    //         // clickScrolling : true
+    //     // },
+    //     textarea : {
+    //         // dynWidth       : false,
+    //         dynHeight      : true,
+    //         inheritedAttrs : ["style", "class"]
+    //     }
+    // });
+
+    function addCustomScroll(selector) {
+        $(selector).overlayScrollbars({
+            // resize: "none",
+            // sizeAutoCapable: false,
+            autoUpdate: true,
+            updateOnLoad: ["p"],
+            paddingAbsolute : true,
+            scrollbars : {
+                clickScrolling : true,
+                visibility : "auto",
+                autoHide : "move",
+                autoHideDelay : 400,
+            }
+        });
+    }
+
+    addCustomScroll('body, .table-responsive, .display-text');
+    
+    
+    // Fix Tinymce Link Dialog Not Working
+    $(document).on('focusin', function(e) {
+        var target = $(e.target);
+        if (target.closest(".mce-window").length || target.closest(".tox-dialog").length) {
+            e.stopImmediatePropagation();
+            target = null;
+        }
+    });
+
+
+    // Capitalize First Letter
+    function capitalise(item) {
+        var result = item.charAt(0).toUpperCase() + item.slice(1);
+        return result;
+
+    }
+
+    // Initialize Bootstrap Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    // Js equivalent of double curly braces
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    
 
     @yield('custom_script')
 

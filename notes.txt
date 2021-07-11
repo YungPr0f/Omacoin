@@ -1,3 +1,10 @@
+Remember to uninstall ga and bowser
+
+Logo Color Codes
+
+Light Blue: #00ADEF
+Dark Blue: #064063
+
 Wallets / Wallet ID
 
 binance - bitcoin

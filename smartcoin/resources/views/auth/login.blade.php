@@ -58,17 +58,18 @@
                                                 
                 
                 
-                                                <div class="single-form mt-35 d-flex justify-content-between">
-                                                    <div class="form-checkbox">
+                                                <div class="single-form mt-sm-4 mt-2 d-sm-flex justify-content-sm-between flex-sm-row-reverse">
+                                                    <div class="form-forget text-right">
+                                                        <a href="{{ route('password.request') }}">{{ __('Forgot Password?') }}</a>
+                                                    </div>    
+                                                    <div class="form-checkbox mt-3 mt-sm-0">
                                                         <input type="checkbox" name="remember" id="remember_me">
                                                         <label for="remember_me"></label> <span>{{ __('Remember Me') }}</span>
                                                     </div>
-                                                    <div class="form-forget">
-                                                        <a href="{{ route('password.request') }}">{{ __('Forgot Password?') }}</a>
-                                                    </div>
+                                                    
                                                 </div> <!-- single-form -->
                                                 
-                                                <div class="single-form standard-buttons mt-20">
+                                                <div class="single-form standard-buttons mt-sm-3 mt-2">
                                                     <button type="submit" class="main-btn standard-two">{{ __('Login Now') }}</button>
                                                 </div> <!-- single-form -->
                                             </form>

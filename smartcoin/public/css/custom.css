@@ -82,6 +82,7 @@
     margin-left: 1rem;
 }
 
+
 /* Toastr End */
 
 
@@ -163,7 +164,7 @@ input.edit, .nice-select.edit {
     padding-right: 65px !important;
 }
 
-input:read-only, .nice-select.disabled {
+input:read-only, .nice-select.disabled, textarea:read-only {
     background-color: rgba(164, 164, 164, 0.3) !important;
     cursor: default !important;
 }
@@ -424,8 +425,241 @@ dl.dl-horizontal dd.line-break {
 
 .qr-preview img {
     padding: 12px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .no-icon.form-style-two .form-input .input-items input, .no-icon.form-style-two .form-input .input-items textarea {
     padding-right: 12px !important;
+}
+
+
+
+/* Custom Toggle Slider */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 24px;
+}
+  
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border: 2px solid #007bff;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 0px;
+    bottom: 0px;
+    background-color: white;
+    /* -webkit-transition: .4s; */
+    /* transition: .4s; */
+
+
+
+
+    /* display: inline-block; */
+    /* background-color: white; */
+    /* position: absolute; */
+    /* left: -1px; */
+    /* top: 0; */
+    /* border-radius: 50%; */
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+    /* -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16); */
+    border: solid 1px #f4f6f7;
+    z-index: 1;
+}
+  
+input:checked + .slider {
+    /* background-color: #2196F3; */
+    /* background-color: #0067f4; */
+    background-color: #007bff;
+    /* background: -webkit-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
+    background: -o-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
+    background: linear-gradient(to right, #0067f4 0%, #2bdbdc 100%); */
+}
+  
+/* input:focus + .slider { */
+    /* box-shadow: 0 0 1px #2196F3; */
+    /* box-shadow: 0 0 1px #0067f4; */
+    /* background: -webkit-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
+    background: -o-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
+    background: linear-gradient(to right, #0067f4 0%, #2bdbdc 100%); */
+/* } */
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(30px);
+    -ms-transform: translateX(30px);
+    transform: translateX(30px);
+}
+  
+/* Rounded sliders */
+.slider.round {
+    border-radius: 20px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* .tg-btn.tg-gradient .tg-body .tg-track .tg-bgd.tg-bgd-negative {
+    background: -webkit-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
+    background: -o-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
+    background: linear-gradient(to right, #0067f4 0%, #2bdbdc 100%);
+} */
+  
+
+/* Custom Toggle Slider */
+
+.readonly.input-items {
+    height: 44px;
+}
+
+.has-overlay.single-card {
+    position: relative;
+}
+
+.has-overlay.single-card .card-image img {
+    width: 100%;
+    height: auto;
+}
+
+.has-overlay.single-card .card-image {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    right: 0;
+    background-color: #fff;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    transition: .5s ease;
+    z-index: 10;
+}
+
+.has-overlay.single-card .note .input-items, .has-overlay.single-card .note .input-items textarea {
+    width: 100%;
+    height: 100%;
+}
+
+/* .form-input .input-items textarea {
+    widht
+} */
+
+.has-overlay.single-card .note {
+    position: absolute;
+    bottom: 0;
+    right: 100%;
+    left: 0;
+    background-color: #fff;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    transition: .5s ease;
+    z-index: 10;
+}
+
+.has-overlay.form-style-two .note.form-input .input-items .display-text {
+    border-radius: 5px;
+    /* padding-left: 12px;
+    padding-right: 12px; */
+    padding: 8px 12px;
+    border: 2px solid;
+    /* height: auto; */
+    max-height: 100%;
+    overflow-y: auto;
+
+    background-color: rgba(164, 164, 164, 0.3);
+    cursor: default !important;
+
+
+}
+
+
+/* .has-overlay.form-style-two .note.form-input .input-items {
+    
+
+} */
+
+
+
+
+
+/* To fix Modal with overlay scrollbar */
+
+/* Fix modal z-index */
+.os-padding {
+    z-index: auto;
+}
+
+/* Disable auto-resize */
+.modal-sm .modal-body {
+    width: 300px !important;
+}
+
+
+.text-transparent {
+    color: rgba(0, 0, 0, 0) !important;
+}
+
+.pt-05 {
+    padding-top: 0.05rem !important;
+}
+
+
+/* Hide Tinymce Editor by default */
+/* I edited to core files for this */
+/* .tox.tox-tinymce {
+    visibility: hidden !important;
+} */
+
+/* .has-overlay.single-card:hover .card-image {
+    width: 100%;
+    left: 0;
+} */
+
+
+.tooltip .tooltip-inner {
+    background-color: #064063;
+}
+
+.bs-tooltip-top .arrow::before {
+    border-top-color: #064063;
+}
+
+.bs-tooltip-bottom .arrow::before {
+    border-bottom-color: #064063;
+}
+
+.bs-tooltip-left .arrow::before {
+    border-left-color: #064063;
+}
+
+.bs-tooltip-right .arrow::before {
+    border-right-color: #064063;
 }

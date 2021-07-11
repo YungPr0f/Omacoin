@@ -10,7 +10,7 @@
     });
     
     
-    //Animate the scroll to yop
+    //Animate the scroll to top
     $('.back-to-top').on('click', function(event) {
         event.preventDefault();
         

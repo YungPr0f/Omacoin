@@ -19,6 +19,9 @@
         <!--====== Nice Select css ======-->
         <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}">
 
+        <!--====== Custom Scrollbar css ======-->
+        <link type="text/css" href="{{ asset('css/OverlayScrollbars.min.css') }}" rel="stylesheet"/>
+
         <!--====== Default css ======-->
         <link rel="stylesheet" href="{{ asset('css/default.css') }}">
 
@@ -33,6 +36,7 @@
 
         <!--====== Favicon Icon ======-->
         <link rel="shortcut icon" href="{{ asset('img/logo/SmartCoin.png') }}" type="image/png">
+
 
         @yield('extra_links')
 

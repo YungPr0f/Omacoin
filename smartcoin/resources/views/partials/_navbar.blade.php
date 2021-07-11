@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
                     
-                    <a class="navbar-brand d-none d-lg-inline-block py-auto" href="#">
+                    <a class="navbar-brand d-none d-lg-inline-block py-auto" href="/">
                         <img src="{{ asset('img/logo/smartcoin.png') }}" width="50px" alt="SmartCoin">
                         <span class="h2 v-align-middle my-auto">SmartCoin</span>
                     </a>

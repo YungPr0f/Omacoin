@@ -19,7 +19,9 @@ class CreateWalletsTable extends Migration
             $table->string('currency', 10);
             $table->string('address', 100);
             $table->integer('rate');
+            $table->string('note', 500)->nullable();
             $table->string('qrcode', 100);
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
