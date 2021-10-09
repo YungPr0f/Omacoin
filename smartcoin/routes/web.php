@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use App\Models\Bank;
+use App\Models\Wallet;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\TransactionController;
 // use App\Http\Controllers\AdminController;
 // use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -20,7 +22,8 @@ use App\Http\Controllers\WalletController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->withPlatforms(platforms())->withCurrencies(currencies())
+        ->withWallets(Wallet::all())->withBanks(Bank::all());
 });
 
 
@@ -34,6 +37,10 @@ Route::get('/qr', function() {
     // return URL::asset('img/logo/SmartCoin.png');
 });
 
+Route::get('/ref', function() {
+    echo(bin2hex(random_bytes(4)));
+});
+
 // Route::resource('dashboard', DashboardController::class);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -45,6 +52,8 @@ Route::post('/qr_preview', [WalletController::class, 'qr_preview'])->name('walle
 Route::post('/qr_delete', [WalletController::class, 'qr_delete'])->name('wallet.qr_del');
 
 Route::resource('wallet', WalletController::class);
+
+Route::resource('transaction', TransactionController::class);
 
 // Route::get('/dashboard', function () {
 //     $userbank = Bank::where('id', Auth::user()->bank_id)->first();

@@ -46,37 +46,44 @@
 
 <!-- <script src="{{ asset('js/custom.js') }}"></script> -->
 
+
 <script src="{{ asset('js/toastr.min.js') }}"></script>
+
+
+<!-- I don't understand why I need this here for tooltips / popper to work -->
+<!-- <script src="{{asset('js/image/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script> -->
+<!--  -->
 
 @yield('extra_scripts')
 
 <script>
 
-    $('[href="#side-menu-left"], [href="#close"]').click(function() {
-        // alert('james');
+    //===== Sidebar
+    $('[href="#side-menu-left"], [href="#close"], .overlay-left').click(function() {
         $('.navbar-area').toggleClass('fixed-top');
+        $('.call-action-area').toggleClass('mt-70');
     });
 
-        //===== Back to top
-
-    // Show or hide the sticky footer button
-    $(window).on('scroll', function(event) {
-        if($(this).scrollTop() > 900){
-            $('.back-to-top').fadeIn(200)
-        } else{
-            $('.back-to-top').fadeOut(200)
-        }
-    });
+    
+    //===== Back to top
+    // Show or hide the sticky footer button // Added to overlay scrollbar callback
+    // $(window).on('scroll', function(event) {
+    //     if($(this).scrollTop() > 900){
+    //         $('.back-to-top').fadeIn(200)
+    //     } else{
+    //         $('.back-to-top').fadeOut(200)
+    //     }
+    // });
     
     
-    //Animate the scroll to yop
-    $('.back-to-top').on('click', function(event) {
-        event.preventDefault();
+    //Animate the scroll to top // Added to overlay scrollbar callback
+    // $('.back-to-top').on('click', function(event) {
+    //     event.preventDefault();
         
-        $('html, body').animate({
-            scrollTop: 0,
-        }, 1500);
-    });
+    //     $('html, body').animate({
+    //         scrollTop: 0,
+    //     }, 1500);
+    // });
     
     
     //===== 
@@ -91,6 +98,14 @@
 
         } else if(countx == 2) {
             $('.rates').html('&nbsp;&nbsp; BTC - $465');
+            countx = 3;
+
+        } else if(countx == 3) {
+            $('.rates').html('&nbsp;&nbsp;&nbsp; ETH - $475');
+            countx = 4;
+
+        } else if(countx == 4) {
+            $('.rates').html('DOGE - $485');
             countx = 1;
 
         }
@@ -168,10 +183,14 @@
                 
             // Time calculations for minutes and seconds
             // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
             
+            if(hours < 10) {
+                hours = '0' + hours;
+            }
+
             if(minutes < 10) {
                 minutes = '0' + minutes;
             }
@@ -181,7 +200,13 @@
             }
                 
             // Output the result in counter
-            counter.html(minutes + ":" + seconds);
+            if(hours > 0) {
+                counter.html(hours + ":" + minutes + ":" + seconds);
+            } else {
+                counter.html(minutes + ":" + seconds);
+            }
+            
+            
                 
             // If the count down is over, write some text 
             if (distance < 0) {
@@ -199,12 +224,16 @@
 
     $('span.countdown-timer').each(function() {
         var counter = $(this);
+        // var hh = counter.attr('data-hh'); // time in hours
+        // hh = hh || 0; // Cast undefined to zero
+
         var mm = counter.attr('data-mm'); // time in minutes
         mm = mm || 0; // Cast undefined to zero
 
         var ss = counter.attr('data-ss'); // time in seconds
         ss = ss || 0; //Cast undefined to zero
 
+        // var time = hh * 1440000 + mm * 60000 + ss * 1000;
         var time = mm * 60000 + ss * 1000;
 
         countdownTimer(counter, time);
@@ -239,6 +268,26 @@
                 visibility : "auto",
                 autoHide : "move",
                 autoHideDelay : 400,
+            },
+            callbacks : {
+                onInitialized : function() {
+                    if($(this.getElements('target')).prop('tagName') == 'BODY') {
+                        var bodyInstance = this;
+
+                        $('.back-to-top').on('click', function(event) {
+                            event.preventDefault();
+                            bodyInstance.scroll({ y : "0%" }, 1000);
+                        });
+                    };
+                },
+                onScroll : function() {
+                    if(this.scroll().position.y > 900){
+                        $('.back-to-top').fadeIn(200)
+                    } else{
+                        $('.back-to-top').fadeOut(200)
+                    }
+                    
+                }
             }
         });
     }
@@ -263,15 +312,19 @@
 
     }
 
-    // Initialize Bootstrap Tooltips
-    $('[data-toggle="tooltip"]').tooltip();
+    
     
     // Js equivalent of double curly braces
     function htmlEntities(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
-    
+
 
     @yield('custom_script')
 
+
+    // $(document).ready(function() {
+    //     // Initialize Bootstrap Tooltips
+    //     $('[data-toggle="tooltip"]').tooltip();
+    // });
 </script>

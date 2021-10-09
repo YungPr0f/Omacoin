@@ -41,15 +41,15 @@
                 </div>
                 <div class="card-content form-input">
                     <div class="row mb-2">
-                        <div class="col-4">
+                        <div class="col-3 pr-0">
                             <small class="platform">{{ $wallet->platform }}</small>
                             <h4 class="card-title currency">{{ $wallet->currency }}</h4>
                         </div>
-                        <div class="col-4 text-center">
-                            <small>$ => ₦</small>
-                            <h4 class="card-title rate">{{ $wallet->rate }}</h4>
+                        <div class="col-6 text-center">
+                            <small>₦ / $</small>
+                            <h4 class="card-title rate">{{ round($wallet->rate, 0) }}</h4>
                         </div>
-                        <div class="col-4 text-right pl-0">
+                        <div class="col-3 text-right pl-0">
                             <img class="icon" src="{{ asset('img/currencies/' . $currencies[$wallet->currency]['icon']) }}" alt="" style="max-width:50px;height:auto;">
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                             <h4 class="card-title currency"></h4>
                         </div>
                         <div class="col-4 text-center">
-                            <small>$ => ₦</small>
+                            <small>₦ / $</small>
                             <h4 class="card-title rate"></h4>
                         </div>
                         <div class="col-4 text-right pl-0">

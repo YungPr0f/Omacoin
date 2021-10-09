@@ -18,10 +18,10 @@
                                             <input name="fieldname" value="photo" type="hidden" />
                                             
                                             <div class="fileinput fileinput-new w-100 mb-0" data-provides="fileinput">
-                                                <div class="fileinput-new thumbnail w-100 ui rounded field-border border">
-                                                    <img src="{{ asset('img/users/' . Auth::user()->photo) }}" class="img-fluid border rounded" alt="...">
+                                                <div class="fileinput-new thumbnail w-100 field-border">
+                                                    <img src="{{ asset('img/users/' . Auth::user()->photo) }}" class="img-fluid" alt="...">
                                                 </div>
-                                                <div class="fileinput-preview fileinput-exists thumbnail lh-0 border rounded"></div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail lh-0 field-border active"></div>
                                                 <div class="d-flex justify-content-between">
                                                     <span class="btn-default btn-file light-rounded-buttons">
                                                         <span class="fileinput-new file-click main-btn light-rounded-two sm-btn d-flex align-items-center px-0 select">
@@ -32,7 +32,7 @@
                                                         </span>
                                                         <!-- <span class="fileinput-new file-click left floated main-btn light-rounded-two sm-btn">Select Image</span> -->
                                                         <!-- <span class="fileinput-exists file-click left floated main-btn light-rounded-two sm-btn">Change</span> -->
-                                                        <input name="photo" type="file" />
+                                                        <input name="photo" type="file" accept="image/*" />
                                                     </span>
                                                     <span class="regular-icon-buttons d-flex">
                                                         <ul class="save">
@@ -212,10 +212,10 @@
                                             <input name="fieldname" value="photo" type="hidden" />
                                             
                                             <div class="fileinput fileinput-new w-100 mb-0" data-provides="fileinput">
-                                                <div class="fileinput-new thumbnail w-100 ui rounded field-border border">
-                                                    <img src="{{ asset('img/users/' . Auth::user()->photo) }}" class="img-fluid border rounded" alt="...">
+                                                <div class="fileinput-new thumbnail w-100 field-border">
+                                                    <img src="{{ asset('img/users/' . Auth::user()->photo) }}" class="img-fluid" alt="...">
                                                 </div>
-                                                <div class="fileinput-preview fileinput-exists thumbnail lh-0 border rounded"></div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail lh-0 field-border active"></div>
                                                 <div class="d-flex justify-content-between">
                                                     <span class="btn-default btn-file light-rounded-buttons">
                                                         <span class="fileinput-new file-click main-btn light-rounded-two sm-btn d-flex align-items-center px-0 select">
@@ -224,7 +224,7 @@
                                                         <span class="fileinput-exists file-click main-btn light-rounded-two hoverable sm-btn d-flex align-items-center px-0 change">
                                                             <i class="lni-pencil size-xs font-weight-bold mx-auto"></i>
                                                         </span>
-                                                        <input name="photo" type="file" />
+                                                        <input name="photo" type="file" accept="image/*" />
                                                     </span>
                                                     <span class="regular-icon-buttons d-flex">
                                                         <ul class="save">
@@ -377,15 +377,15 @@
                             <div id="collapseEightteen" class="collapse" data-parent="#accordionProfile">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-4 col-sm-6 mb-sm-4 col-md-3 col-lg-2">
+                                        <div class="col-4 col-sm-6 mb-4 col-md-3 col-lg-2">
                                             <div class="form-input">
                                                 <label>Bank Icon</label>
                                                 <div class="input-items">
-                                                    <img src="{{ asset('img/banks/' . $userbank->icon) }}" class="img-fluid rounded bank-logo border p-1" alt="">
+                                                    <img src="{{ asset('img/banks/' . $userbank->icon) }}" class="w-100 img-fluid rounded bank-logo border p-1" alt="">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-8 col-sm-12 col-md-9 col-lg-10">
+                                        <div class="col-12 col-sm-12 col-md-9 col-lg-10">
                                             <div class="form-style form-style-two">
                                                 <div class="row">
 

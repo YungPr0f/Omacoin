@@ -45,8 +45,8 @@
 
                                                 <div class="form-input mt-25">
                                                     <!-- <label>Email</label> -->
-                                                    <div class="input-items default">
-                                                        <input id="email" type="email" placeholder="Email" name="email" value="{{ old('email', $request->email) }}" required>
+                                                    <div class="input-items active">
+                                                        <input readonly id="email" type="email" placeholder="Email" name="email" value="{{ old('email', $request->email) }}" required>
                                                         <i class="lni-envelope"></i>
                                                     </div>
                                                 </div> <!-- form input -->

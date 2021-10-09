@@ -37,6 +37,12 @@
         <!--====== Favicon Icon ======-->
         <link rel="shortcut icon" href="{{ asset('img/logo/SmartCoin.png') }}" type="image/png">
 
+        <!-- Preloaded Images -->
+        @foreach(currencies() as $currency)
+        <link rel="preload" as="image" href="{{ asset('img/currencies/' . $currency['icon']) }}">
+        <link rel="preload" as="image" href="{{ asset('img/currencies/x-' . $currency['icon']) }}">
+        @endforeach
+
 
         @yield('extra_links')
 

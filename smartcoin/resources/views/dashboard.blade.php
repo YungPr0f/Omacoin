@@ -53,7 +53,7 @@
 @endsection
 
 @section('extra_scripts')
-
+    
     <script src="{{asset('js/image/core/bootstrap-material-design.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/image/plugins/jasny-bootstrap.min.js')}}"></script>
     <script src="{{asset('js/image/material-kit.min.js')}}" type="text/javascript"></script>
@@ -109,14 +109,18 @@
     
     // Get currently active tab
     $('.grid-3').on('arrangeComplete', function (event, filteredItems) {
-            var filteredItem = $(filteredItems[0]['element']).attr('class').replace('col-12 ', '');
+        var filteredItem = $(filteredItems[0]['element']).attr('class').replace('col-12 ', '');
 
-            if(filteredItem == 'wallets') {
-                firstShowNote();
-            }
-            
+        if(filteredItem == 'wallets') {
+            firstShowNote();
         }
-    );
+
+        // If responsive table exists in active tab
+        if($(filteredItems[0]['element']).find('.table-responsive').length > 0) {
+            $('.grid-3').isotope('layout');
+        }
+
+    });
 
     // Remove Portfolio Area Fixed Height
     $('.grid-3').isotope('on', 'layoutComplete', function() {
@@ -172,6 +176,10 @@
         
 
     });
+
+
+
+    /////////////////// PROFILE - START ///////////////////
 
     // Update Profile Photo
     $('ul.save').click(function() {
@@ -585,10 +593,12 @@
         }).modal('show');
 
     });
-
     
+    /////////////////// PROFILE - END ///////////////////
 
 
+
+    /////////////////// WALLETS ///////////////////
 
     // Add Wallet
     $('#add-wallet').click(function(e) {
@@ -611,13 +621,6 @@
                             <div class="modal-body text-center" style="max-height:332px;">
                                 <div class="sign-in-form-area wow fadeIn text-left" data-wow-duration="1s" data-wow-delay="0.4s">
                                     <div class="sign-in-form-wrapper form-style-two no-icon">
-
-                                        <!-- <div class="form-input">
-                                            <label>Platform</label>
-                                            <div class="input-items default">
-                                                <input type="text" name="platform" placeholder="Platform e.g. Paxful" required>
-                                            </div>
-                                        </div> -->
 
                                         <div class="custom-dropdown form-input">
                                             <label>Platform</label>
@@ -859,10 +862,6 @@
 
                 var genval = qrPreview.attr('data-value');
 
-                // alert(oldval);
-                // alert(newval);
-                // alert(genval);
-
                 if(newval != oldval) {
 
                     if(newval == genval) {
@@ -895,8 +894,18 @@
                     if(WAValidator.validate(address, currency)) { // issue with currency validation
                     // if(true) {
 
+                        var formData = new FormData(this);
+
+                        for (var pair of formData.entries()) {
+                            console.log(pair[0]+ ', ' + pair[1]); 
+                        }
+
                         // Trigger Save on Tinymce
                         tinymce.triggerSave();
+
+                        for (var pair of formData.entries()) {
+                            console.log(pair[0]+ ', ' + pair[1]); 
+                        }
 
                         $(this).find('.modal-footer button').attr('disabled', true);
                         $(this).find('.create').prepend(`<i class="lni-spinner lni-spin-effect"></i> `);
@@ -951,7 +960,7 @@
 
                                     cloneWallet.find('.platform').text(wallet.platform);
                                     cloneWallet.find('.currency').text(wallet.currency);
-                                    cloneWallet.find('.rate').text(wallet.rate);
+                                    cloneWallet.find('.rate').text(Math.round(wallet.rate));
                                     cloneWallet.find('img.icon').attr('src', "{{ asset('img/currencies/') }}" + '/' + wallet.icon);
                                     cloneWallet.find('input.address').val(wallet.address);
                                     
@@ -967,8 +976,9 @@
                                         'data-platform' : wallet.platform,
                                         'data-currency' : wallet.currency,
                                         'data-address' : wallet.address,
-                                        'data-rate' : wallet.rate,
+                                        'data-rate' : Math.round(wallet.rate),
                                         'data-icon' : '{{ asset("img/currencies/") }}' + '/' + wallet.icon,
+                                        'data-note' : wallet.note,
                                         'data-qr' : '{{ asset("img/wallets/") }}' + '/' + wallet.qrcode
                                     });
 
@@ -1563,8 +1573,6 @@
 
         }).modal('show');
 
-
-        // alert('switch clicked');
     });
 
     // Reveal Wallet QR
@@ -1910,13 +1918,6 @@
                 nowAddress = editWallet.find('input[name="address"]').val();
                 nowNote = editWallet.find('textarea[name="note"]').val();
 
-                // alert(oldPlatform + '\r\n' + nowPlatform);
-                // alert(oldCurrency + '\r\n' + nowCurrency);
-                // alert(oldRate + '\r\n' + nowRate);
-                // alert(oldIcon + '\r\n' + nowIcon);
-                // alert(oldAddress + '\r\n' + nowAddress);
-                // alert(oldNote + '\r\n' + nowNote);
-
                 if(oldPlatform == nowPlatform && oldCurrency == nowCurrency 
                     && oldRate == nowRate && oldIcon == nowIcon
                     && oldAddress == nowAddress && oldNote == nowNote) {
@@ -1992,13 +1993,11 @@
                                     editWallet.attr('edited', true);
 
                                     if(oldQr != "{{ asset('img/wallets/') }}" + '/' + wallet.qrcode) {
-                                        alert('new qr');
                                         editWallet.find('img.qrcode').attr('src', "{{ asset('img/wallets/') }}" + '/' + wallet.qrcode);
                                     }
                                     
 
                                     if(oldNote != wallet.note) {
-                                        alert('new note');
                                         if(wallet.note != '') {
                                             editWallet.find('.note.form-input').addClass('bg-transparent').find('.input-items').removeAttr('style').html(`
                                                 <div class="display-text bg-transparent text-transparent" style="height: auto; max-height: 100% !important;">
@@ -2021,27 +2020,22 @@
                                     
 
                                     if(oldPlatform != wallet.platform) {
-                                        alert('new platform');
                                         editWallet.find('.platform').text(wallet.platform);
                                     }
 
                                     if(oldCurrency != wallet.currency) {
-                                        alert('new currency');
                                         editWallet.find('.currency').text(wallet.currency);
                                     }
 
-                                    if(oldRate != wallet.rate) {
-                                        alert('new rate');
-                                        editWallet.find('.rate').text(wallet.rate);
+                                    if(oldRate != Math.round(wallet.rate)) {
+                                        editWallet.find('.rate').text(Math.round(wallet.rate));
                                     }
 
                                     if(oldIcon != "{{ asset('img/currencies/') }}" + '/' + wallet.icon) {
-                                        alert('new icon');
                                         editWallet.find('img.icon').attr('src', "{{ asset('img/currencies/') }}" + '/' + wallet.icon);
                                     }
 
                                     if(oldAddress != wallet.address) {
-                                        alert('new address');
                                         editWallet.find('input.address').val(wallet.address);
                                     }
                                     
@@ -2053,7 +2047,6 @@
                                     // editWallet.find('label.switch').attr('data-id', wallet.id);
 
                                     if((oldPlatform + ' ' + oldCurrency) != (wallet.platform + ' ' + wallet.currency)) {
-                                        alert('new name');
                                         editWallet.find('label.switch, .wallet-delete').attr('data-name', wallet.platform + ' ' + wallet.currency);
                                     }
 
@@ -2061,7 +2054,7 @@
                                         'data-platform' : wallet.platform,
                                         'data-currency' : wallet.currency,
                                         'data-address' : wallet.address,
-                                        'data-rate' : wallet.rate,
+                                        'data-rate' : Math.round(wallet.rate),
                                         'data-icon' : '{{ asset("img/currencies/") }}' + '/' + wallet.icon,
                                         'data-note' : wallet.note,
                                         'data-qr' : '{{ asset("img/wallets/") }}' + '/' + wallet.qrcode
@@ -2237,13 +2230,6 @@
                                 });
 
                                 body.addClass('undo');
-                            });
-
-
-                            // Activate Paste as Plain Text only
-                            editor.on('paste', function(e) {
-                                e.preventDefault();
-                                alert('jamess');
                             });
 
 
@@ -2434,7 +2420,6 @@
 
             }
 
-            // editWallet.off('animationend');
             $('.grid-3').isotope('layout');
 
             
@@ -2553,5 +2538,530 @@
 
 
     });
+
+
+    /////////////////// WALLETS ///////////////////
+
+
+    /////////////////// TRANSACTION ///////////////////
+
+    $('.txn-btn').click(function(e) {
+        e.preventDefault();
+        // alert('clicked');
+
+        var id = $(this).attr('data-id');
+        var action = $(this).attr('data-action');
+        var txnData = $(this).parents('tr');
+
+        var cryptoAmount = txnData.attr('data-crypto-amount');
+        var walletPlatform = txnData.attr('data-wallet-platform');
+        var walletCurrency = txnData.attr('data-wallet-currency');
+        var currencyName = txnData.attr('data-currency-name');
+        var walletAddress = txnData.attr('data-wallet-address');
+        var cryptoReceipt = txnData.attr('data-crypto-receipt');
+
+        var nairaEquivalent = txnData.attr('data-naira-equivalent');
+        var bankName = txnData.attr('data-bank-name');
+
+
+
+        if(action == "review_receipt") {
+            txnData.append(`
+                <div class="modal fade" id="cryptoReceiptModal" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered modal-sm modal-dialog-scrollable">
+                        <form method="POST" action="">
+                            @csrf
+                            {!! method_field('PUT') !!}
+                            <input type="hidden" name="action" value="confirm_crypto">
+
+                            <div class="modal-content d-block">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirm Cryptocurrency</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center" style="max-height:332px;">
+                                    <div class="sign-in-form-area wow fadeIn text-left" data-wow-duration="1s" data-wow-delay="0.4s">
+                                        <span class="text-left text-ellipsis">
+                                            <strong>$`+ cryptoAmount +`</strong> `+ currencyName +` was sent into `+ walletPlatform + ' ' + walletCurrency +` wallet address: <u>`+ walletAddress +`</u>
+                                        </span>
+                                        <div class="sign-in-form-wrapper form-style-two no-icon">
+                                            <div class="form-input mt-4">
+                                                <label class="d-flex justify-content-between">
+                                                    <span class="d-flex align-items-end">Receipt</span>
+                                                    <div class="light-rounded-buttons receipt-button" data-status="show">
+                                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal d-flex align-items-center">
+                                                            <i class="lni-frame-expand d-inline-block mr-2"></i>
+                                                            <span>Show</span>
+                                                        </a>
+                                                    </div>
+                                                </label>
+                                                <div class="input-items default receipt-preview hidden" data-value="">
+                                                    <img src="`+ cryptoReceipt +`" alt="" class="img-fluid w-100 field-border">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-between">
+                                    <button type="button" class="btn btn-danger">Reject</button>
+                                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button> -->
+                                    <button type="submit" class="btn btn-primary confirm_crypto">Confirm</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `);
+
+            txnData.find('.modal').on('show.bs.modal', function() {
+                addCustomScroll(txnData.find('.modal-body'));
+
+                var receiptBtn = $(this).find('.receipt-button');
+
+                receiptBtn.click(function() {
+
+                    var status = $(this).attr('data-status');
+                    var receiptPreview = $(this).parents('.form-input').find('.receipt-preview');
+
+                    if(status == 'show') {
+                        // Loading animation
+                        $(this).attr('class', 'light-rounded-buttons disabled');
+                        $(this).html(`
+                            <span class="disabled main-btn light-rounded-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center">
+                                <i class="lni-spinner lni-spin-effect my-1"></i>
+                            </span>
+                        `);
+
+                        var receiptBtnPos = $(this).position().top;
+                        receiptPreview.removeClass('hidden').parents('.modal-body .os-viewport').animate({
+                            scrollTop: receiptBtnPos,
+                        });
+
+                        $(this).attr('class', 'light-rounded-buttons success-buttons disabled');
+                        $(this).attr('data-status', '');
+                        $(this).html(`
+                            <span class="disabled main-btn success-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center">
+                                <i class="lni-check-mark-circle my-1"></i>
+                            </span>
+                        `);
+
+                    } else {
+                        $(this).attr('class', 'light-rounded-buttons');
+                        $(this).attr('data-status', 'show');
+                        $(this).html(`
+                            <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center">
+                                <i class="lni-frame-expand d-inline-block mr-2"></i>
+                                <span>Show</span>
+                            </a>
+                        `);
+
+                        receiptPreview.addClass('hidden');
+                    }
+
+                });
+
+                $(this).find('form').submit(function(e) {
+                    e.preventDefault();
+
+                    $(this).find('.modal-footer button').attr('disabled', true);
+                        $(this).find('.confirm_crypto').prepend(`<i class="lni-spinner lni-spin-effect"></i> `);
+
+                        // Save to Database
+                        $.ajax({
+                            url: "/transaction/" + id,
+                            method: "POST",
+                            data: new FormData(this),
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success:function(result) { // On Ajax Success
+
+                                if($.isEmptyObject(result.error)) { // If the error container is empty [i.e. success]
+
+                                    // Success Alert Message
+                                    toastr.success(result.success);
+
+                                    // Remove modal footer
+                                    txnData.find('.modal-footer').remove();
+
+                                    // Repace modal body
+                                    txnData.find('.modal-body').html('<i class="lni-check-mark-circle text-success font-weight-bolder display-1"></i>');
+
+                                    // Transaction data
+                                    // var transaction = result.data;
+
+                                    // Mark transaction as updated
+                                    txnData.attr('updated', true);
+
+                                } else { // If error container not empty [i.e error] 
+                                    
+                                    if(Array.isArray(result.error)) {
+                                        // Errors List
+                                        var errors = result.error;
+                                        var errorList = [];
+                                        errors.forEach(function(item) {
+                                            errorList.push('<li>'+ item + '</li>');
+                                        });
+
+                                        // Error Alert Message List
+                                        toastr.error('<ul class="multiple">' + errorList.join('') + '</ul>', 'Please check your input');
+
+                                    } else {
+                                        // Error Alert Message
+                                        toastr.error(result.error);
+
+                                    }
+                                    
+
+                                    // Remove loading animation
+                                    txnData.find('.modal-footer button').removeAttr('disabled');
+                                    txnData.find('.confirm_crypto').children('i.lni-spinner').remove();
+                                    
+                                }
+                            },
+                            error: function(xhr, status, error){ // On Ajax Error
+
+                                // Error Alert Message
+                                toastr.error(xhr.statusText, 'Error - ' + xhr.status);
+
+                                // Remove loading animation
+                                txnData.find('.modal-footer button').removeAttr('disabled');
+                                txnData.find('.confirm_crypto').children('i.lni-spinner').remove();
+
+                            }
+                        }).fail(function() { toastr.error('Something went wrong') }); // On Ajax Fail
+
+                });
+
+            }).on('hidden.bs.modal', function() {
+                txnData.find('.modal').remove();
+
+                if(txnData.attr('updated')) {
+
+                    // Change Review Receipt Button to Process Payment Button
+                    txnData.find('.light-rounded-buttons').removeClass('info-buttons')
+                    .find('.txn-btn').removeClass('info-two').addClass('light-rounded-two')
+                    .attr('data-action', 'process_payment').html(`
+                        <i class="lni-credit-cards d-inline-block mr-2"></i>
+                        Process Payment
+                    `);
+
+                    txnData.find('td').last().prev().html(`
+                        <span>Crypto Confirmed</span>
+                    `).prev().html(`
+                        <span>Just Now</span>
+                    `);
+
+
+
+                    // Animate updated transaction
+                    txnData.addClass('animate__animated animate__flash').removeAttr('updated');
+                    
+                    // On animation complete
+                    txnData.on('animationend', () => {
+                        
+                        txnData.removeClass('animate__animated animate__flash');
+                        txnData.off();
+
+                    });
+
+                }
+
+            }).modal('show');
+
+        } else if(action == "process_payment") {
+            txnData.append(`
+                <div class="modal fade" id="processPaymentModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-sm modal-dialog-scrollable" role="document">
+                        <form id="sell" method="POST" action="{{ route('transaction.store') }}" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="modal-content d-block">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="passwordModalLabel">Process Payment</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center" style="max-height:332px;">
+                                    <div class="sign-in-form-area wow fadeIn text-left slick-container" data-wow-duration="1s" data-wow-delay="0.4s">
+                                        <div class="sign-in-form-wrapper form-style-two no-icon">
+                                            
+                                            <small>Bank Name</small>
+                                            <h5 class="mb-2">`+ bankName +`</h5>
+
+                                            <small>Account Number</small>
+                                            <h5 class="mb-2">1235567890</h5>
+
+                                            <small>Account Name</small>
+                                            <h5 class="mb-2">Yusuf Lateef Omotoyosi</h5>
+
+                                            <div class="checkout-checkbox mt-4 pt-2 pb-0">
+                                                <ul class="checkbox_common">
+                                                    <li>
+                                                        <input type="checkbox" id="checkbox1">
+                                                        <label for="checkbox1"><span></span><strong>&#8358;`+ nairaEquivalent +`</strong> has been sent to the account details above:</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="sign-in-form-wrapper form-style-two receipt-container">
+                                            <!-- <div class="form-input">
+                                                <label>Amount Sent ($)</label>
+                                                <div class="input-items default">
+                                                    <input type="text" name="amount" placeholder="0.00" required>
+                                                </div>
+                                            </div> -->
+
+                                            <div class="form-input hidden">
+                                                <label>Upload Receipt</label>
+                                                <div class="form-group">
+                                                    <div class="fileinput fileinput-new w-100 mb-0" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail w-100 field-border">
+                                                            <img src="{{ asset('img/ui/receipt.png') }}" class="img-fluid" alt="...">
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail lh-0 field-border active"></div>
+                                                        <div class="d-flex justify-content-between light-rounded-buttons danger-buttons">
+                                                            <span class="btn-default btn-file light-rounded-buttons">
+                                                                <span class="fileinput-new file-click left floated main-btn light-rounded-two xs-btn text-none font-weight-normal">Select Image</span>
+                                                                <span class="fileinput-exists file-click left floated main-btn light-rounded-two hoverable xs-btn text-none font-weight-normal">Change</span>
+                                                                <input name="receipt" type="file" accept="image/*" />
+                                                            </span>
+                                                            <span class="fileinput-exists main-btn danger-two hoverable xs-btn text-none font-weight-normal" data-dismiss="fileinput">Remove</span>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-between regular-icon-buttons">
+                                    <ul><li class="mt-0 slick-left hidden"><a href="#" class="regular-icon-light-ten d-flex align-items-center justify-content-center"><i class="lni-arrow-left font-weight-bolder"></i></a></li></ul>
+                                    <button type="submit" class="btn btn-success slick-submit hidden">Submit</button>
+                                    <span>---</span>
+                                    <ul><li class="mt-0 slick-right hidden"><a href="#" class="regular-icon-light-ten d-flex align-items-center justify-content-center"><i class="lni-arrow-right font-weight-bolder"></i></a></li></ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `);
+
+
+            txnData.find('.modal').on('show.bs.modal', function() {
+                addCustomScroll(txnData.find('.modal-body'));
+
+                // txnData.find('select').niceSelect();
+                // txnData.find('.nice-select.no-search .nice-select-search-box').remove();
+                // txnData.find('.nice-select.no-search ul.list').addClass('pt-0');
+
+                txnData.find('input:checkbox').change(function() {
+                    if($(this).prop('checked')) {
+                        txnData.find('.slick-right').removeClass('hidden');
+                        txnData.find('.modal-footer>span').addClass('hidden');
+                    } else {
+                        txnData.find('.slick-right').addClass('hidden');
+                        txnData.find('.modal-footer>span').removeClass('hidden');
+                    }
+                        
+                });
+
+
+            }).on('shown.bs.modal', function() {
+
+                txnData.find('.slick-container').slick({
+                    infinite: false,
+                    adaptiveHeight: true,
+                    prevArrow: txnData.find('.slick-left'),
+                    nextArrow: txnData.find('.slick-right'),
+                    draggable: false,
+                    swipe: false,
+                    touchMove: false,
+                });
+
+                // Show Submit Button + Hide Next Button on Last Slide
+                $(this).find('.slick-container').on('afterChange', function(event, slick, currentSlide) {
+                    if (slick.$slides.length-1 == currentSlide) {
+                        $('.slick-submit').removeClass('hidden');
+                        $('.slick-right').parent().addClass('hidden');
+                    } else {
+                        $('.slick-submit').addClass('hidden');
+                        $('.slick-right').parent().removeClass('hidden');
+                    }
+                });
+
+                // Show Left Button from Second Slide
+                $(this).find('.slick-container').on('afterChange', function(event, slick, currentSlide) {
+                    if (currentSlide > 0) {
+                        $('.slick-left').removeClass('hidden');
+                    } else {
+                        $('.slick-left').addClass('hidden');
+                    }
+                });
+                
+                $(this).find('.slick-container').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                    if(currentSlide == 0 && nextSlide == 1) {
+                        txnData.find('.receipt-container').children().removeClass('hidden');
+                    }
+                });
+                
+
+                // Jasny File Upload
+                $('.file-click').click(function() {
+                    $(this).siblings('input[type="file"]').click();
+                });
+
+
+                $('form#sell').submit(function(e) {
+                    e.preventDefault();
+
+                    if($(this).find('input:file')[0].files.length == 0) {
+                        toastr.error('Please select an image');
+
+                    } else {
+                        $(this).find('.slick-left').addClass('hidden');
+                        $(this).find('button.slick-submit').attr('disabled', true).prepend(`<i class="lni-spinner lni-spin-effect"></i> `);
+                        
+                        var formData = new FormData(this);
+                        formData.append('wallet_id', sellCrypto.find('.form-input.wallet').not('.hidden').attr('data-id'));
+
+                        // for (var pair of formData.entries()) {
+                        //     console.log(pair[0]+ ', ' + pair[1]); 
+                        // }
+
+                        $.ajax({
+                            url: "{{ route('transaction.store') }}",
+                            method: "POST",
+                            data: formData,
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success:function(result) { // On Ajax Success
+
+                                if($.isEmptyObject(result.error)) { // If the error container is empty [i.e. success]
+
+                                    // Success Alert Message
+                                    toastr.success(result.success);
+
+                                    // Remove modal footer
+                                    sellCrypto.find('.modal-footer').remove();
+
+                                    // Repace modal body
+                                    sellCrypto.find('.modal-body').html('<i class="lni-check-mark-circle text-success font-weight-bolder display-1"></i>');
+                                    
+                                } else { // If error container not empty [i.e error] 
+                                    
+                                    // Errors List
+                                    var errors = result.error;
+                                    var errorList = [];
+                                    errors.forEach(function(item) {
+                                        errorList.push('<li>'+ item + '</li>');
+                                    });
+
+                                    // Error Alert Message
+                                    toastr.error('<ul>' + errorList.join('') + '</ul>', 'Please check your input');
+
+                                    // Remove loading animation
+                                    sellCrypto.find('button.slick-submit').removeAttr('disabled').children('i.lni-spinner').remove();
+                                    sellCrypto.find('.slick-left').removeClass('hidden');
+                                }
+                            },
+                            error: function(xhr, status, error){ // On Ajax Error
+
+                                // Error Alert Message
+                                toastr.error(xhr.statusText, 'Error - ' + xhr.status);
+
+                                // Remove loading animation
+                                sellCrypto.find('button.slick-submit').removeAttr('disabled').children('i.lni-spinner').remove();
+                                sellCrypto.find('.slick-left').removeClass('hidden');
+                                
+                            }
+
+                        }).fail(function() { toastr.error('Something went wrong') }); // On Ajax Fail
+
+
+                        // $(this).unbind('submit');
+
+                    }
+
+
+
+                });
+
+            }).on('hidden.bs.modal', function() {
+
+                txnData.find('.slick-container').slick('unslick'); // Destroy Slide. Will be initialized on Modal Show
+                txnData.find('.slick-left').addClass('disabled'); // Disable Prev Button
+                txnData.find('.slick-right').removeClass('disabled'); // Enable Next Button
+
+                txnData.find('.modal').remove();
+
+                    
+            }).modal('show');
+
+        }
+    });
+
+
+
+
+    // Verifying Receipt
+    // Show Receipt [Crypto / Naira]
+    // $('.receiptModal, .nairaReceivedModal').on('show.bs.modal', function() {
+
+    //     addCustomScroll($(this).find('.modal-body'));
+
+    //     $(this).find('.receipt-button').click(function() {
+
+    //         var status = $(this).attr('data-status');
+    //         var receiptPreview = $(this).parents('.form-input').find('.receipt-preview');
+
+    //         if(status == 'show') {
+    //             $(this).attr('class', 'light-rounded-buttons success-buttons disabled');
+    //             $(this).attr('data-status', '');
+    //             $(this).html(`
+    //                 <span class="disabled main-btn success-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center">
+    //                     <i class="lni-check-mark-circle my-1"></i>
+    //                 </span>
+    //             `);
+
+    //             var receiptBtnPos = $(this).position().top;
+    //             receiptPreview.removeClass('hidden').parents('.modal-body .os-viewport').animate({
+    //                 scrollTop: receiptBtnPos,
+    //             });
+
+    //         } else {
+    //             $(this).attr('class', 'light-rounded-buttons');
+    //             $(this).attr('data-status', 'show');
+    //             $(this).html(`
+    //                 <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100 d-flex align-items-center">
+    //                     <i class="lni-frame-expand d-inline-block mr-2"></i>
+    //                     <span>Show</span>
+    //                 </a>
+    //             `);
+
+    //             receiptPreview.addClass('hidden');
+    //         }
+
+    //     });
+
+    // });
+
+
+    // // Confirm Crypto
+    // $('.txn_update').click(function() {
+
+    // });
+
+
+    
+
+    
 
 @endsection

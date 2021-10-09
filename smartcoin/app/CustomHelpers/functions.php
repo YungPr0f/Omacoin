@@ -2,6 +2,8 @@
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
+// date_default_timezone_set('Africa/Lagos');
+
 // Timeago Function
 function timeago( $ptime )
 {
@@ -50,19 +52,23 @@ function currencies() {
     $currencies = [
         "BTC" => [
             "name" => "Bitcoin",
-            "icon" => "btc.png"
+            "icon" => "btc.png",
+            "default" => "Paxful"
         ],
         "ETH" => [
             "name" => "Ethereum",
-            "icon" => "eth.png"
+            "icon" => "eth.png",
+            "default" => "Paxful"
         ],
         "USDT" => [
             "name" => "Tether",
-            "icon" => "usdt.png"
+            "icon" => "usdt.png",
+            "default" => "Paxful"
         ],
         "DOGE" => [
             "name" => "Dogecoin",
-            "icon" => "doge.png"
+            "icon" => "doge.png",
+            "default" => "Binance"
         ]
     ];
 
@@ -75,5 +81,11 @@ function platforms() {
 
     return $platforms;
 }
+
+
+function amount($number) {
+    return $number = number_format($number, 2, '.', ',');
+}
+
 
 ?>

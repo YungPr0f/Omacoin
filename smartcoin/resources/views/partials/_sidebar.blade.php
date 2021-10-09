@@ -1,4 +1,4 @@
-<div class="sidebar-left pt-125 d-md-none">
+<div class="sidebar-left pt-125 d-lg-none">
     <div class="sidebar-close">
         <a class="close" href="#close"><i class="lni-close"></i></a>
     </div>
@@ -14,14 +14,51 @@
                 <li><a href="#">CONTACT</a></li>
             </ul>
         </div> <!-- menu -->
-        <div class="light-rounded-buttons d-inline-block d-block mr-50 px-3  w-100">
+        <div class="light-rounded-buttons d-inline-block d-block mr-50 px-3 w-100">
             <ul>
                 @auth
-                <li><a class="main-btn light-rounded-one sm-btn light" href="{{ route('dashboard') }}">My Dashboard</a></li>
+                    @if(Route::currentRouteName() == 'dashboard' || Route::currentRouteName() == 'admin')
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            
+                            <div class="form-input danger-buttons mt-20">
+                                <button type="submit" class="main-btn danger-one sm-btn">{{ __('Logout') }}</button>
+                            </div>
+                        </form>
+                        <!-- <li><a class="main-btn danger-one sm-btn light" href="{{ route('dashboard') }}">Admin Panel</a></li> -->
+                    @else
+                        @if(Auth::user()->role == 'admin')
+                        <li><a class="main-btn light-rounded-one sm-btn light" href="{{ route('dashboard') }}">Admin Panel</a></li>
+                        @else
+                        <li><a class="main-btn light-rounded-one sm-btn light" href="{{ route('dashboard') }}">My Dashboard</a></li>
+                        @endif
+                    @endif
                 @else
                 <li><a class="main-btn light-rounded-one sm-btn light" href="{{ route('login') }}">Sign In</a></li>
                 <li><a class="main-btn light-rounded-two sm-btn solid" href="{{ route('register') }}">Sign Up</a></li>
                 @endauth
+
+
+                {{-- @auth
+                    @if(Route::currentRouteName() == 'dashboard' || Route::currentRouteName() == 'admin')
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        
+                        <div class="form-input danger-buttons">
+                            <button type="submit" class="main-btn danger-one">{{ __('Logout') }}</button>
+                        </div>
+                    </form>
+                    @else
+                        @if(Auth::user()->role == 'admin')
+                        <li><a class="light" href="{{ route('dashboard') }}">Admin Panel</a></li>
+                        @else
+                        <li><a class="light" href="{{ route('dashboard') }}">My Dashboard</a></li>
+                        @endif
+                    @endif
+                @else
+                <li><a class="light" href="{{ route('login') }}">Sign In</a></li>
+                <li><a class="solid" href="{{ route('register') }}">Sign Up</a></li>
+                @endauth --}}
             </ul>
         </div>
         <!-- <div class="sidebar-social d-flex align-items-center justify-content-center">

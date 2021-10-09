@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Bank;
 use App\Models\User;
 use App\Models\Wallet;
+use App\Models\Transaction;
 use Auth;
 use Validator;
 use Hash;
@@ -27,16 +28,20 @@ class DashboardController extends Controller
     {
         //
         $userbank = Bank::where('id', Auth::user()->bank_id)->first();
+        // $usertransactions = User::find(Auth::id())->Transaction::all();
+        $usertransactions = Transaction::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         
         $banks = Bank::all();
         $users = User::all();
         $wallets = Wallet::all();
+        $transactions = Transaction::orderBy('updated_at', 'desc')->get();
 
         $currencies = currencies();
         $platforms = platforms();
 
         return view('dashboard')->withBanks($banks)->withUserbank($userbank)->withUsers($users)
-            ->withCurrencies($currencies)->withPlatforms($platforms)->withWallets($wallets);
+            ->withCurrencies($currencies)->withPlatforms($platforms)->withWallets($wallets)
+            ->withUsertransactions($usertransactions)->withTransactions($transactions);
     }
 
     public function profile_update(Request $request) {
@@ -59,11 +64,11 @@ class DashboardController extends Controller
                 }
             ],
             'account_name' => ['sometimes', 'required', 'string', 'min:2', 'max:200'],
-            'photo' => ['sometimes', 'required', 'image', 'max:1500'], // Profile photo [file] must be an image (jpg, png, etc.)
+            'photo' => ['sometimes', 'required', 'image', 'max:2048'], // Profile photo [file] must be an image (jpg, png, etc.)
         ],
         [
-            'photo.required' => 'No new photo selected', // Error message if no photo selected
-            'photo.max' => 'The photo must not be greater than 1.5MB'
+            'photo.required' => 'No new :attribute selected', // Error message if no photo selected
+            'photo.max' => 'The :attribute must not be greater than 2MB'
         ]);
 
 
@@ -93,7 +98,7 @@ class DashboardController extends Controller
                     $data = asset('img/users/' . $user->$fieldname);
 
                 } else {
-                    return response()->json(['error'=>'Unexpected Error']); // Send Error Response in JSON format to View
+                    return response()->json(['error'=>'Something went wrong']); // Send Error Response in JSON format to View
                 
                 }
 
