@@ -11,7 +11,22 @@ binance - bitcoin
 paxful - bitcoin
 USBT - bitcoin
 
+ERC20, BEP2, BEP20, Solana, TRC20
 
+php artisan iseed users,banks,wallets,transactions
+
+member
+currency
+platform
+address
+rate
+crypto_amount
+crypto_receipt
+naira_equivalent
+naira_receipt
+stage => crypto_sent, crypto_received, naira_sent, naira_received
+status => pending, processing, completed, canceled
+admin
 
 
 Paxful

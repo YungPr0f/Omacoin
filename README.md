@@ -1,1 +1,1 @@
-# SmartCoin
+# OmaCoin
