@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'OmaCoin | Forgot Password')
+@section('title', 'Omacoin | Forgot Password')
 
 @section('content')
 

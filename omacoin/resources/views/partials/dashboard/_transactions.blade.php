@@ -1,10 +1,10 @@
-@if(Auth::user()->role == 'admin')
+@if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
 <div class="single-portfolio border border-primary p-4">
     <div class="row">
         <div class="col-12">
             <div class="table-box">
                 <div class="table-style table-responsive style-two txn_details">
-                    <table class="table table striped">
+                    <table class="table table striped mb-0">
                         <thead class="table-thead container">
                             <tr>
                                 <!-- <th class="w-1">Txn ID</th> -->
@@ -25,7 +25,7 @@
                                     data-wallet-platform="{{ $transaction->wallet_platform }}" 
                                     data-wallet-currency="{{ $transaction->wallet_currency }}"
                                     data-currency-name="{{ $currencies[$transaction->wallet_currency]['name'] }}"
-                                    data-wallet-token="{{ $transaction->wallet_token }}"
+                                    data-wallet-network="{{ ($transaction->wallet_network ?? '') }}"
                                     data-wallet-address="{{ $transaction->wallet_address }}"
                                     
                                     data-naira-equivalent="{{ amount($transaction->crypto_amount * $transaction->wallet_rate) }}"
@@ -386,7 +386,7 @@
         <div class="col-12">
             <div class="table-box">
                 <div class="table-style table-responsive style-two txn_details">
-                    <table class="table table striped">
+                    <table class="table table striped mb-0">
                         <thead class="table-thead container">
                             <tr>
                                 <!-- <th class="w-1">Txn ID</th> -->
@@ -406,7 +406,7 @@
                                 <tr data-crypto-amount="{{ amount($usertransaction->crypto_amount) }}" 
                                     data-wallet-currency="{{ $usertransaction->wallet_currency }}" 
                                     data-currency-name="{{ $currencies[$usertransaction->wallet_currency]['name'] }}"
-                                    data-wallet-token="{{ $usertransaction->wallet_token }}" 
+                                    data-wallet-network="{{ ($usertransaction->wallet_network ?? '') }}" 
                                     data-naira-equivalent="{{ amount($usertransaction->crypto_amount * $usertransaction->wallet_rate) }}"
                                     data-bank-name="{{ $banks->find($usertransaction->bank_id)->name }}" 
                                     data-account-number="{{ $usertransaction->account_number }}" 

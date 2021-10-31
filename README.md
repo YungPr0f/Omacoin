@@ -1,1 +1,1 @@
-# OmaCoin
+# Omacoin

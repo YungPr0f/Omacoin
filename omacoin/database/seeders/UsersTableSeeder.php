@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'role' => 'member',
-                'surname' => 'OmaCoin',
+                'surname' => 'Omacoin',
                 'firstname' => 'Member',
                 'email' => 'member@omacoin.com',
                 'phone_number' => '08012345678',
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'role' => 'admin',
-                'surname' => 'OmaCoin',
+                'surname' => 'Omacoin',
                 'firstname' => 'Administrator',
                 'email' => 'admin@omacoin.com',
                 'phone_number' => '08012345679',

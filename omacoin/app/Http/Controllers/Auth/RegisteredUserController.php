@@ -34,6 +34,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'role' => 'in:member,admin,superadmin',
             'surname' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -41,17 +42,39 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|confirmed|min:8',
         ]);
 
-        Auth::login($user = User::create([
+        $user = User::create([
+            'role' => $request->role ?? '',
             'surname' => $request->surname,
             'firstname' => $request->firstname,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'password' => Hash::make($request->password),
-        ]));
+        ]);
 
-        event(new Registered($user));
+        
 
-        Session::flash('success', 'Registration successful');
-        return redirect(RouteServiceProvider::HOME);
+        if(empty($request->role)) {
+
+            return response()->json(['error'=>'User created successfully', 'data'=>$user]);
+
+            // Auth::login($user);
+
+            // event(new Registered($user));
+
+            // Session::flash('success', 'Registration successful');
+            // return redirect(RouteServiceProvider::HOME);
+
+        } else {
+
+            if(!empty($validator->errors())) {
+                return response()->json(['error'=>$validator->errors()->all()]); // Send Error Response in JSON format to View
+
+            } else {
+                return response()->json(['success'=>'User created successfully', 'data'=>$user]); // Send Success Response + Data in JSON Format to the View
+
+            }
+
+        }
+        
     }
 }

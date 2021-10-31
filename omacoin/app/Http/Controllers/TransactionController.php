@@ -51,6 +51,8 @@ class TransactionController extends Controller
             $units[] = $unit;
         }
 
+        $networks = networks();
+
         $validator = Validator::make($request->all(), [
             'account_number' => ['exclude_if:bank_info,existing', 'required_if:bank_info,new',
                 function($attribute, $value, $fail) {
@@ -112,6 +114,7 @@ class TransactionController extends Controller
                 $transaction->currency = $request->currency;
                 $transaction->wallet_platform = $wallet->platform;
                 $transaction->wallet_currency = $wallet->currency;
+                $transaction->wallet_network = $wallet->network;
                 $transaction->wallet_address = $wallet->address;
                 $transaction->wallet_rate = $wallet->rate;
                 $transaction->crypto_amount = $request->crypto_amount;

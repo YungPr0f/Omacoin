@@ -8,7 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\TransactionController;
 // use App\Http\Controllers\AdminController;
-// use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +30,11 @@ Route::get('/', function () {
 Route::get('/qr', function() {
     // walletQR('12345', public_path('img/ui/qrtest.png'));
     // return QrCode::size(1000)->generate('boy');
-    // echo '<img src="data:image/png;base64,' . base64_encode(QrCode::format('png')->size(500)->merge('/public/img/logo/smartcoin2.png', .25)->errorCorrection('H')->generate('boy')) .'">';=
+    // echo '<img src="data:image/png;base64,' . base64_encode(QrCode::format('png')->size(500)->merge('/public/img/logo/omacoin2.png', .25)->errorCorrection('H')->generate('boy')) .'">';=
     // walletQR('3LfV7Zna8gG6SGUrWLaGkLHjpVcbiX7rnW', '../public/img/wallets/qrcode1.png');
-    // return QrCode::format('png')->size(500)->merge('/public/img/logo/OmaCoin.png')->errorCorrection('H')->generate('Make me into a QrCode!');
-    // echo '<img src="data:image/png;base64,' . base64_encode(QrCode::format('png')->size(500)->merge('/public/img/logo/smartcoin2.png', .3)->errorCorrection('H')->generate('Make me into a QrCode!')) .'">';
-    // return URL::asset('img/logo/OmaCoin.png');
+    // return QrCode::format('png')->size(500)->merge('/public/img/logo/Omacoin.png')->errorCorrection('H')->generate('Make me into a QrCode!');
+    echo '<img src="data:image/png;base64,' . base64_encode(QrCode::format('png')->size(500)->merge('/public/img/logo/omacoin-new-icon.png', .3)->errorCorrection('H')->generate('Make me into a QrCode!')) .'">';
+    // return URL::asset('img/logo/Omacoin.png');
 });
 
 Route::get('/ref', function() {

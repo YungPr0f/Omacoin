@@ -56,27 +56,52 @@ class WalletController extends Controller
             $units[] = $unit;
         }
 
-        $tokens = tokens();
+        $networks = networks();
 
         $validator = Validator::make($request->all(), [
             'platform' => ['required', 'string', 'max:100', Rule::in($platforms)],
             // 'currency' => ['required', 'string', 'max:10', Rule::in($units), 'unique:wallets,currency,NULL,id,platform,' . request('platform')],
             'currency' => ['required', 'string', 'max:10', Rule::in($units)],
-            // 'token' => ['required', 'string', 'max:10', Rule::in($tokens), 'unique:wallets,token,NULL,id,currency,' . request('currency') . ',platform,' . request('platform')],
-            'token' => ['required', 'string', 'max:10', Rule::in($tokens)],
+
+            'network' => ['sometimes', 'string', 'max:10', Rule::in($networks), 'unique:wallets,network,NULL,id,currency,' . request('currency') . ',platform,' . request('platform')],
+            // 'network' => ['required', 'string', 'max:10', Rule::in($networks)],
             // 'address' => ['required', 'string', 'max:100', 'unique:wallets,address,NULL,id,currency,' . request('currency')],
-            'address' => ['required', 'string', 'max:100', Rule::unique('wallets')->where(function($query) {
-                return $query->where('platform', '!=', request('platform'));
-            })],
+            'address' => [
+                'required', 'string', 'max:100', 
+                Rule::unique('wallets')->where(function($query) {
+                    return $query->where('platform', '!=', request('platform'));
+                }),
+                'unique_wallet_store:wallets,'.request('network').','.request('currency').','.request('platform'),
+            ],
             'rate' => ['required', 'numeric'],
             'note' => ['nullable', 'string', 'max:500'],
         ],
         [
-            'address.unique' => 'The wallet :attribute already exists',
-            // 'token.unique' => request('platform') . ' ' . request('currency') . ' ' . request('token') . ' wallet already exists',
-            // 'currency.unique' => request('platform') . ' ' . request('currency') . ' wallet already exists',
+            // Only if no network is selected (sometimes) i.e. any currency with no network variants cannot have two wallets
+            'currency.unique' => request('platform') . ' ' . request('currency') . ' wallet already exists',
+            
+            // If network is selected but the currency already exists in another wallet with no network
+            'currency.no_network_store' => 'There is already a ' . request('currency') . ' wallet with no network',
+
+            'network.unique' => request('platform') . ' ' . request('currency') . ' ' . request('network') . ' wallet already exists',
+            
+            'address.unique' => 'The wallet :attribute already exists on another platform',
+            'address.unique_wallet_store' => 'This wallet already exists',
+            
+            
             // 'address.unique' => request('platform') . ' ' . request('currency') . ' wallet already exists',
         ]);
+
+        // If no network selected
+        $validator->sometimes('currency', 'unique:wallets,currency,NULL,id,platform,' . request('platform'), function ($input) {
+            return !(request('network'));
+        });
+
+        // If network selected
+        $validator->sometimes('currency', 'no_network_store:wallets', function ($input) {
+            return (request('network'));
+        });
+        
 
         if($validator->passes()) {
 
@@ -88,7 +113,7 @@ class WalletController extends Controller
 
                 $wallet->platform = $request->platform;
                 $wallet->currency = $request->currency;
-                $wallet->token = $request->token;
+                $wallet->network = $request->network;
                 $wallet->address = $request->address;
                 $wallet->rate = $request->rate;
                 $wallet->note = trim(str_replace('<p>&nbsp;</p>', '', $request->note));
@@ -100,6 +125,7 @@ class WalletController extends Controller
                 $wallet->icon = $currencies[$wallet->currency]['icon'];
     
                 return response()->json(['success'=>'Wallet created successfully', 'data'=>$wallet]); // Send Success Response + Data in JSON Format to the View
+            
             } else {
                 return response()->json(['error'=>'Error generating QR Code']);
 
@@ -109,7 +135,6 @@ class WalletController extends Controller
             
         }
 
-        
 
         // If Validator fails
         return response()->json(['error'=>$validator->errors()->all()]); // Send Error Response in JSON format to View
@@ -195,24 +220,48 @@ class WalletController extends Controller
                 $units[] = $unit;
             }
 
+            $networks = networks();
+
             $validator = Validator::make($request->all(), [
                 'platform' => ['required', 'string', 'max:100', Rule::in($platforms)],
                 // 'currency' => ['required', 'string', 'max:10', Rule::in($units), 'unique:wallets,currency,'. $wallet->id .',id,platform,' . request('platform')],
                 'currency' => ['required', 'string', 'max:10', Rule::in($units)],
-                // 'token' => ['required', 'string', 'max:10', Rule::in($tokens), 'unique:wallets,token,' . $wallet->id . ',id,currency,' . request('currency') . ',platform,' . request('platform')],
-                'token' => ['required', 'string', 'max:10', Rule::in($tokens)],
+                'network' => ['sometimes', 'string', 'max:10', Rule::in($networks), 'unique:wallets,network,' . $wallet->id . ',id,currency,' . request('currency') . ',platform,' . request('platform')],
+                // 'network' => ['required', 'string', 'max:10', Rule::in($networks)],
                 // 'address' => ['required', 'string', 'max:100', 'unique:wallets,address,' . $wallet->id . ',id,currency,' . request('currency')],
-                'address' => ['required', 'string', 'max:100', Rule::unique('wallets')->ignore($wallet->id)->where(function($query) {
-                    return $query->where('platform', '!=', request('platform'));
-                })],
+                'address' => [
+                    'required', 'string', 'max:100',
+                    Rule::unique('wallets')->ignore($wallet->id)->where(function($query) {
+                        return $query->where('platform', '!=', request('platform'));
+                    }),
+                    'unique_wallet_update:wallets,'.request('network').','.request('currency').','.request('platform').','.$wallet->id,
+                ],
                 'rate' => ['required', 'numeric'],
                 'note' => ['nullable', 'string', 'max:500'],
             ],
             [
-                'address.unique' => 'The wallet :attribute already exists',
-                // 'token.unique' => request('platform') . ' ' . request('currency') . ' ' . request('token') . ' wallet already exists',
-                // 'currency.unique' => request('platform') . ' ' . request('currency'). ' wallet already exists',
+                // Only if no network is selected (sometimes) i.e. any currency with no network variants cannot have two wallets
+                'currency.unique' => request('platform') . ' ' . request('currency') . ' wallet already exists',
+                
+                // If network is selected but the currency already exists in another wallet with no network
+                'currency.no_network_update' => 'There is already a ' . request('currency') . ' wallet with no network',
+                
+                'network.unique' => request('platform') . ' ' . request('currency') . ' ' . request('network') . ' wallet already exists',
+
+                'address.unique' => 'The wallet :attribute already exists on another platform',
+                'address.unique_wallet_update' => 'This wallet already exists',
+                
             ]);
+
+            // If no network selected
+            $validator->sometimes('currency', 'unique:wallets,currency,'. $wallet->id .',id,platform,' . request('platform'), function ($input) {
+                return !(request('network'));
+            });
+
+            // If network selected
+            $validator->sometimes('currency', 'no_network_update:wallets,' . $wallet->id, function ($input) {
+                return (request('network'));
+            });
 
 
             if($validator->passes()) {

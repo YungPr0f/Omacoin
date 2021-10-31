@@ -1,4 +1,4 @@
-@if(Auth::user()->role == 'admin')
+@if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
 <div class="single-portfolio border border-primary p-4">
     <div class="row">
         <div class="col-lg-3 col-md-4 col-8 mb-2 mb-lg-0">

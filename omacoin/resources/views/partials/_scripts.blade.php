@@ -58,6 +58,12 @@
 
 <script>
 
+    // Preloader
+    $(window).on('load', function() {
+        console.log('james');
+        $('.preloader').delay(1000).fadeOut(500);
+    });
+
     //===== Sidebar
     $('[href="#side-menu-left"], [href="#close"], .overlay-left').click(function() {
         $('.navbar-area').toggleClass('fixed-top');

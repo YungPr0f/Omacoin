@@ -35,7 +35,7 @@
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
         <!--====== Favicon Icon ======-->
-        <link rel="shortcut icon" href="{{ asset('img/logo/OmaCoin.png') }}" type="image/png">
+        <link rel="shortcut icon" href="{{ asset('img/logo/Omacoin.png') }}" type="image/png">
 
         <!-- Preloaded Images -->
         @foreach(currencies() as $currency)

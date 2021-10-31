@@ -13,7 +13,7 @@
         "@tailwindcss/forms": "^0.2.1",
         "alpinejs": "^2.7.3",
         "autoprefixer": "^10.1.0",
-        "axios": "^0.21",
+        "axios": "^0.21.4",
         "laravel-mix": "^6.0.24",
         "lodash": "^4.17.19",
         "postcss": "^8.3.3",
@@ -21,6 +21,7 @@
         "tailwindcss": "^2.2.2"
     },
     "dependencies": {
+        "@swyftx/api-crypto-address-validator": "^1.13.1",
         "animate.css": "^4.1.1",
         "bowser": "^2.11.0",
         "gasparesganga-jquery-loading-overlay": "^2.1.7",

@@ -24,7 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->string('currency', 10);
             $table->string('wallet_platform', 100);
             $table->string('wallet_currency', 10);
-            $table->string('wallet_token', 10);
+            $table->string('wallet_network', 10);
             $table->string('wallet_address', 100);
             $table->decimal('wallet_rate', 8, 2);
             $table->decimal('crypto_amount', 8, 2);

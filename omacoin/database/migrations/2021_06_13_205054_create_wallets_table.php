@@ -17,7 +17,7 @@ class CreateWalletsTable extends Migration
             $table->id();
             $table->string('platform', 100);
             $table->string('currency', 10);
-            $table->string('token', 10);
+            $table->string('network', 10);
             $table->string('address', 100);
             $table->integer('rate');
             $table->string('note', 500)->nullable();

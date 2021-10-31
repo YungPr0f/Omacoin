@@ -7,7 +7,7 @@
                         <div class="col-6">
                             <div class="footer-logo-support d-md-flex align-items-end justify-content-between">
                                 <div class="footer-logo d-flex align-items-end">
-                                    <a class="mt-30" href="index.html"><img src="{{ asset('img/logo/OmaCoin.png') }}" class="img-fluid" alt="Logo"></a>
+                                    <a class="mt-30" href="index.html"><img src="{{ asset('img/logo/Omacoin.png') }}" class="img-fluid" alt="Logo"></a>
 
                                     
                                 </div> <!-- footer logo -->
@@ -50,9 +50,10 @@
                     <div class="footer-link">
                         <h6 class="footer-title" style="font-size:1.2rem;">Quick Links</h6>
                         <ul>
-                            <li><a href="#">Register</a></li>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">Current Rates</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <!-- <li><a href="#">Current Rates</a></li> -->
+                            <li><a href="https://paxful.com/offer/s2VNohiq7ig">Buy Bitcoin</a></li>
                         </ul>
                     </div> <!-- footer link -->
                 </div>
@@ -105,7 +106,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="copyright text-center">
-                        <p class="text text-white">Copyright © 2021 OmaCoin. All Rights Reserved</p>
+                        <p class="text text-white">Copyright © 2021 Omacoin. Powered by <strong>Omacore Global Services</strong>. All Rights Reserved.</p>
                     </div>
                 </div>
             </div> <!-- row -->

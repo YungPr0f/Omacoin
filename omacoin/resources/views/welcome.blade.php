@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/material-kit.css') }}">
 @endsection
 
-@section('title', 'OmaCoin | Home')
+@section('title', 'Omacoin | Home')
 
 @section('content')
 
@@ -15,8 +15,8 @@
                     <div class="call-action-content mt-45">
                         <h3 class="action-title mb-20">Sell Cryptocurrency, Get Paid Instantly</h3>
                         <p class="lead lh-30">
-                            <strong>OmaCoin</strong> is an automated cryptocurrency trading platform in Nigeria,
-                            where you can sell cryptocurrencies like bitcoin and paxful. Your Naira
+                            <strong>Omacoin</strong> is an automated cryptocurrency trading platform in Nigeria,
+                            where you can sell cryptocurrencies like bitcoin and ethereum. Your Naira
                             bank account is credited almost instantly with our smart and reliable system.
                         </p>
                         <div class="action-btn rounded-buttons">
@@ -97,19 +97,19 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 1</a></h4>
-                        <p class="text">Register a free account with us to get your powerful OmaCoin dedicated wallet address.</p>
+                        <p class="text">Register a free account with us to get your powerful Omacoin dedicated wallet address.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 2</a></h4>
-                        <p class="text">After registration, log into your OmaCoin account to add your bank account details for automated withdrawals.</p>
+                        <p class="text">After registration, log into your Omacoin account to add your bank account details for automated withdrawals.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 3</a></h4>
-                        <p class="text">Send bitcoin or paxful to your OmaCoin dedicated wallet address and get paid in Naira instantly.</p>
+                        <p class="text">Send bitcoin or ethereum to your Omacoin dedicated wallet address and get paid in Naira instantly.</p>
                     </div>
                 </div>
             </div>
@@ -139,7 +139,7 @@
                             </div>
                         </div>
                         <div class="testimonial-text">
-                            <p class="text">Very fast, reliable and efficient service. Thank you OmaCoin for your fast online assistance and fast payments.</p>
+                            <p class="text">Very fast, reliable and efficient service. Thank you Omacoin for your fast online assistance and fast payments.</p>
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                             </div>
                         </div>
                         <div class="testimonial-text">
-                            <p class="text">Very fast, reliable and efficient service. Thank you OmaCoin for your fast online assistance and fast payments.</p>
+                            <p class="text">Very fast, reliable and efficient service. Thank you Omacoin for your fast online assistance and fast payments.</p>
                         </div>
                     </div>
                 </div>
@@ -244,7 +244,7 @@
 
         @auth
             
-            @if(Auth::user()->role == 'admin')
+            @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
                 toastr.error('Available to members only');
 
             @else
@@ -287,7 +287,7 @@
 
                                                     <div class="form-input mt-4">
                                                         <label>Select Currency</label>
-                                                        <div class="row no-gutters single-checkout-pro" style="gap: 0.5em;">
+                                                        <div class="row row-cols-4 no-gutters single-checkout-pro" style="gap: 0.5em;">
                                                             @php $i = 0; @endphp
                                                             @foreach($currencies as $unit => $currency)
                                                             @php $i++; @endphp
@@ -337,7 +337,7 @@
                                                         @foreach($wallets as $wallet)
                                                         <!-- <div class="form-input hidden wallet" 
                                                             data-id="{{ $wallet->id }}" data-currency="{{ $wallet->currency }}" 
-                                                            data-token="{{ $wallet->token }}" data-platform="{{ $wallet->platform }}" 
+                                                            data-network="{{ $wallet->network }}" data-platform="{{ $wallet->platform }}" 
                                                             {{ ($currencies[$wallet->currency]['default'] == $wallet->platform) ? 'default' : '' }}> -->
                                                     --}}        
                                                             <!-- <div class="d-flex justify-content-between mb-0 pb-2">
@@ -345,22 +345,22 @@
                                                                 <small class="text-danger d-block">Max: $10,000</small>
                                                             </div> -->
                                                             
-                                                            <div class="tabs form-input">
+                                                            <div class="tabs form-input hidden">
                                                                 <div class="d-flex justify-content-between mb-0 pb-2">
-                                                                    <small class="text-danger d-block">Min: $10</small>
-                                                                    <small class="text-danger d-block">Max: $10,000</small>
+                                                                    <small class="text-danger d-block">Min: ${{ amount(limits()['min']) }}</small>
+                                                                    <small class="text-danger d-block">Max: ${{ amount(limits()['max']) }}</small>
                                                                 </div>
-                                                                <div class="single-tabs tebs-two">
+                                                                <div class="single-tabs tebs-two br-5">
                                                                     <ul class="nav nav-justified" id="myTab" role="tablist">
                                                                     @if(count($wallets) > 0)
                                                                         @foreach($wallets as $wallet)
                                                                         <li class="nav-item wallet-nav hidden"
                                                                             data-id="{{ $wallet->id }}" data-currency="{{ $wallet->currency }}" 
-                                                                            data-token="{{ $wallet->token }}" data-platform="{{ $wallet->platform }}"
+                                                                            data-network="{{ $wallet->network }}" data-platform="{{ $wallet->platform }}"
                                                                             {{ ($currencies[$wallet->currency]['default'] == $wallet->platform) ? 'default' : '' }}
                                                                             >
-                                                                            <a class="active pb-2 pt-2 px-1 d-flex align-items-center" data-toggle="tab" href="#{{ $wallet->platform . '_' . $wallet->currency . '_' . $wallet->token }}" role="tab" aria-selected="true">
-                                                                                <label class="w-100 label token text-dark m-0 xs-label token-label rounded">{{ $wallet->token }}</label> 
+                                                                            <a class="p-2 d-flex align-items-center" data-toggle="tab" href="#{{ $wallet->platform . '_' . $wallet->currency . '_' . $wallet->network }}" role="tab" aria-selected="true">
+                                                                                <label class="w-100 label network text-dark m-0 xs-label network-label rounded">{{ $wallet->network ?? currencies()[$wallet->currency]['name']  }}</label> 
                                                                             </a>
                                                                         </li>
                                                                         @endforeach
@@ -370,12 +370,12 @@
                                                                     <div class="tab-content" id="myTabContent">
                                                                     @if(count($wallets) > 0)
                                                                         @foreach($wallets as $wallet)
-                                                                        <div class="tab-pane fade show active wallet-content hidden" id="{{ $wallet->platform . '_' . $wallet->currency . '_' . $wallet->token }}" role="tabpanel"
+                                                                        <div class="tab-pane fade wallet-content hidden" id="{{ $wallet->platform . '_' . $wallet->currency . '_' . $wallet->network }}" role="tabpanel"
                                                                             data-id="{{ $wallet->id }}" data-currency="{{ $wallet->currency }}" 
-                                                                            data-token="{{ $wallet->token }}" data-platform="{{ $wallet->platform }}"
+                                                                            data-network="{{ $wallet->network }}" data-platform="{{ $wallet->platform }}"
                                                                             {{ ($currencies[$wallet->currency]['default'] == $wallet->platform) ? 'default' : '' }}
                                                                             >
-                                                                            <div class="tab-text pt-2">
+                                                                            <div class="tab-text p-2">
 
                                                                                 <label class="wallet-label">{{ $wallet->platform . ' ' . $wallet->currency }} Wallet Address</label>
                                                                                 <div class="readonly input-items regular-icon-buttons mb-3">
@@ -416,7 +416,7 @@
                                                             </div>
 
                                                             {{--
-                                                            <label class="wallet-label">{{ $wallet->platform . ' ' . $wallet->currency . ' ' . $wallet->token }} Wallet Address</label>
+                                                            <label class="wallet-label">{{ $wallet->platform . ' ' . $wallet->currency . ' ' . $wallet->network }} Wallet Address</label>
                                                             <div class="readonly input-items regular-icon-buttons mb-3">
                                                                 <input class="address field-border active" readonly type="text" value="{{ $wallet->address }}">
                                                                 <a href="" class="regular-icon-light-two">
@@ -743,8 +743,18 @@
                         $(this).find('.slick-container').on('afterChange', function(event, slick, currentSlide) {
                             if (currentSlide > 0) {
                                 $('.slick-left').removeClass('hidden');
+
+                                if((currentSlide == 1) && (sellCrypto.find('.tabs').hasClass('hidden'))) {
+                                    $('.slick-right').addClass('hidden');
+
+                                }
+
                             } else {
                                 $('.slick-left').addClass('hidden');
+                                $('.slick-right').removeClass('hidden');
+
+                                sellCrypto.find('.tabs, .wallet-nav, .wallet-content').addClass('hidden');
+
                             }
 
                             // Remove all hidden items after first change
@@ -787,17 +797,19 @@
                         // Show Wallet from Selected Parameters
                         sellCrypto.find('.slick-container').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
                             if (currentSlide == 0 && nextSlide == 1) {
-                                sellCrypto.find('.wallet-container .tabs').removeClass('hidden');
 
                                 var platform = sellCrypto.find('select[name="platform"]').val();
                                 var currency = sellCrypto.find('input:radio[name="currency"]:checked').val();
 
-                                alert(platform);
-                                alert(currency);
+                                // alert(platform);
+                                // alert(currency);
 
                                 if(platform == 'Default') {
                                     var walletNavs = sellCrypto.find('.wallet-nav[default][data-currency="'+ currency +'"]');
                                     var walletContents = sellCrypto.find('.wallet-content[default][data-currency="'+ currency +'"]');
+
+                                    console.log(walletNavs);
+                                    console.log(walletContents);
                                     
                                 } else {
                                     var walletNavs = sellCrypto.find('.wallet-nav[data-platform="'+ platform +'"][data-currency="'+ currency +'"]');
@@ -806,20 +818,19 @@
                                 }
 
                                 if(walletNavs.length > 0 && walletContents.length > 0) {
-                                    alert(walletNavs.length)
-                                    console.log(walletNavs);
+
+                                    sellCrypto.find('.wallet-container .tabs').removeClass('hidden');
+
+                                    walletNavs.first().find('a').addClass('active');
+                                    walletContents.first().addClass('active show');
+
+                                    console.log(walletNavs.first());
+                                    console.log(walletContents.first());
+
                                     walletNavs.each(function(index, walletNav) {
 
-                                        alert($(walletNav).attr('data-platform'));
-                                        alert(platform);
-
-                                        alert($(walletNav).attr('data-currency'));
-                                        alert(currency);
-                                        
                                         // Unhide wallet navs of selected platform and currency, hide others
-                                        if(($(walletNav).attr('data-platform') == platform) && ($(walletNav).attr('data-currency') == currency)) {
-                                            
-
+                                        if((($(walletNav).attr('data-platform') == platform) || $(walletNav).attr('default') != undefined) && ($(walletNav).attr('data-currency') == currency)) {
                                             $(walletNav).removeClass('hidden');
 
                                         } else {
@@ -832,11 +843,11 @@
                                     walletContents.each(function(index, walletContent) {
                                         
                                         // Unhide wallet contents of selected platform and currency, hide others
-                                        if(($(walletContent).attr('data-platform') == platform) && ($(walletContent).attr('data-currency') == currency)) {
+                                        if((($(walletContent).attr('data-platform') == platform) || $(walletContent).attr('default') != undefined) && ($(walletContent).attr('data-currency') == currency)) {
                                             $(walletContent).removeClass('hidden');
 
-                                            var token = $(walletContent).attr('data-token');
-                                            $(walletContent).find('label.wallet-label').text(platform + ' ' + currency + ' ' + token + ' Wallet Address');
+                                            var network = $(walletContent).attr('data-network');
+                                            $(walletContent).find('label.wallet-label').text(platform + ' ' + currency + ' ' + network + ' Wallet Address');
 
                                             if($(walletContent).hasClass('event-added')) { // If wallet has been shown before, do nothing
 
@@ -921,11 +932,12 @@
                                         }
                                     });
                                     
+
                                     // if(wallet.hasClass('hidden')) {
                                         
                                     //     // Unhide wallet, hide others
                                     //     wallet.removeClass('hidden').siblings().addClass('hidden');
-                                    //     wallet.find('label.wallet-label').text(platform + ' ' + currency + ' ' + token + ' Wallet Address');
+                                    //     wallet.find('label.wallet-label').text(platform + ' ' + currency + ' ' + network + ' Wallet Address');
 
                                     //     if(wallet.hasClass('event-added')) { // If wallet has been shown before, do nothing
 
@@ -1008,13 +1020,27 @@
                                     // }
 
                                 } else {
+                                    // No wallets found
+                                    sellCrypto.find('.wallet-container .tabs').addClass('hidden');
+
+                                    // Unhide loading icon (no wallets found)
                                     sellCrypto.find('.wallet-container > i').removeClass('hidden').siblings().addClass('hidden');
+
+                                    // Hide right button
+                                    // sellCrypto.find('.slick-right').addClass('hidden');
+
+                                    // Hide loading icon and unhide right button on going back
+                                    // sellCrypto.find('.slick-container').on('afterChange', function(event, slick, currentSlide) {
+                                    //     if (currentSlide == 1 && nextSlide == 0) {
+                                    //         $('.slick-right').removeClass('hidden');
+                                    //         sellCrypto.find('.wallet-container > i').addClass('hidden')
+
+                                    //     }
+                                    // });
 
                                 }
                                 
                                 
-                                
-
                             } else if(currentSlide == 1 && nextSlide == 2) {
                                 
                                 // Save Initial Height
@@ -1091,6 +1117,8 @@
                                     
                                 });
 
+                            } else {
+                                sellCrypto.find('.wallet-container > i').addClass('hidden');
                             }
 
 
@@ -1133,10 +1161,10 @@
                             } else {
 
                                 $(this).find('.slick-left').addClass('hidden');
-                                $(this).find('button.slick-submit').attr('disabled', true).prepend(`<i class="lni-spinner lni-spin-effect"></i> `);
+                                $(this).find('button.slick-submit').attr('disabled', true).prepend(`<i class="lni-spinner lni-spin-effect"></i>`);
                                 
                                 var formData = new FormData(this);
-                                formData.append('wallet_id', sellCrypto.find('.form-input.wallet').not('.hidden').attr('data-id'));
+                                formData.append('wallet_id', sellCrypto.find('.wallet-content.active.show').not('.hidden').attr('data-id'));
 
                                 // for (var pair of formData.entries()) {
                                 //     console.log(pair[0]+ ', ' + pair[1]); 

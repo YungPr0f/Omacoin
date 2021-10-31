@@ -1,5 +1,6 @@
-<div class="single-portfolio border border-primary pt-0 px-4 pb-4">
-    <div class="row wallets-container">
+<div class="single-portfolio border border-primary pt-0 px-4">
+    <div class="row wallets-container pb-4" style="position: relative;">
+        <div class="preloader"></div>
         <div class="col-sm-6 col-lg-4 col-xl-3 mt-4">
             <div class="single-card card-style-one wallet form-style form-style-two">
                 <div class="card-image text-center p-4">
@@ -19,7 +20,7 @@
         </div>
         
         
-
+        @if(count($wallets) > 0)
         @foreach($wallets as $wallet)
         <div class="col-sm-6 col-lg-4 col-xl-3 mt-4 wallet-card">
             <div class="single-card card-style-one wallet form-style form-style-two has-overlay">
@@ -49,14 +50,14 @@
                             <small>₦ / $</small>
                             <h4 class="card-title rate">{{ round($wallet->rate, 0) }}</h4>
                         </div>
-                        <div class="col-3 text-right pl-0">
-                            <img class="icon" src="{{ asset('img/currencies/' . $currencies[$wallet->currency]['icon']) }}" alt="" style="max-width:50px;height:auto;">
+                        <div class="col-3 text-right pl-0 d-flex flex-row-reverse">
+                            <img class="icon" src="{{ asset('img/currencies/' . (($wallet->status == 1) ? 'x-' : '') . $currencies[$wallet->currency]['icon']) }}" alt="" style="max-width:50px;height:auto;">
                         </div>
                     </div>
                     
                     <span class="d-flex justify-content-between my-1">
                         <small>Wallet Address</small>
-                        <label class="label token text-dark m-0 xs-label token-label rounded">{{ $wallet->token }}</label> 
+                        <label class="label network text-dark m-0 xs-label network-label rounded {{ $wallet->network ? '' : 'bg-0 text-transparent' }}">{{ $wallet->network ?? 'N/A' }}</label>
                     </span>
                     
                     <div class="readonly input-items regular-icon-buttons mb-3">
@@ -75,7 +76,7 @@
                         </div>
                         <div class="col-6 text-center wallet-switch">
                             <small>Status</small>
-                            <label class="switch mb-0 d-block mx-auto" data-id="{{ $wallet->id }}" data-name="{{ $wallet->platform . ' ' . $wallet->currency . ' ' . $wallet->token }}">
+                            <label class="switch mb-0 d-block mx-auto" data-id="{{ $wallet->id }}" data-name="{{ $wallet->platform . ' ' . $wallet->currency . ' ' . $wallet->network }}">
                                 <input class="status" type="checkbox" {{ $wallet->status ? 'checked' : '' }}>
                                 <span class="slider round"></span>
                             </label>
@@ -96,7 +97,7 @@
                             data-id="{{ $wallet->id }}"
                             data-platform="{{ $wallet->platform }}"
                             data-currency="{{ $wallet->currency }}"
-                            data-token="{{ $wallet->token }}"
+                            data-network="{{ $wallet->network }}"
                             data-address="{{ $wallet->address }}"
                             data-rate="{{ $wallet->rate }}"
                             data-icon="{{ asset('img/currencies/' . $currencies[$wallet->currency]['icon']) }}"
@@ -106,7 +107,7 @@
                                 Edit
                             </a>
                         </div>
-                        <div class="col-6 light-rounded-buttons danger-buttons wallet-delete" data-id="{{ $wallet->id }}" data-name="{{ $wallet->platform . ' ' . $wallet->currency . ' ' . $wallet->token }}">
+                        <div class="col-6 light-rounded-buttons danger-buttons wallet-delete" data-id="{{ $wallet->id }}" data-name="{{ $wallet->platform . ' ' . $wallet->currency . ' ' . $wallet->network }}">
                             <a href="#" class="main-btn danger-two xs-btn text-none font-weight-normal w-100">
                                 Delete
                             </a>
@@ -116,6 +117,7 @@
             </div>
         </div>
         @endforeach
+        @endif
 
 
         <!-- Dummy Card Start -->
@@ -149,14 +151,14 @@
                             <small>₦ / $</small>
                             <h4 class="card-title rate"></h4>
                         </div>
-                        <div class="col-4 text-right pl-0">
+                        <div class="col-4 text-right pl-0 d-flex flex-row-reverse">
                             <img class="icon" src="" alt="" style="max-width:50px;height:auto;">
                         </div>
                     </div>
                     
                     <span class="d-flex justify-content-between my-1">
                         <small>Wallet Address</small>
-                        <label class="label token text-dark m-0 xs-label token-label rounded">{{ $wallet->token }}</label> 
+                        <label class="label network text-dark m-0 xs-label network-label rounded"></label> 
                     </span>
                     <div class="readonly input-items regular-icon-buttons mb-3">
                         <input class="address" readonly type="text" value="">

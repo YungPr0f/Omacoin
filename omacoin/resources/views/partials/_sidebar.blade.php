@@ -4,8 +4,8 @@
     </div>
     <div class="sidebar-content">
         <div class="sidebar-logo px-3">
-            <a href="#"><img src="{{ asset('img/logo/OmaCoin.png') }}" width="40px" alt="Logo"></a>
-            <span class="h4 v-align-middle my-auto">OmaCoin</span>
+            <a href="#"><img src="{{ asset('img/logo/Omacoin.png') }}" width="40px" alt="Logo"></a>
+            <span class="h4 v-align-middle my-auto">Omacoin</span>
         </div> <!-- logo -->
         <div class="sidebar-menu">
             <ul>

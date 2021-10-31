@@ -38,10 +38,10 @@ class DashboardController extends Controller
 
         $currencies = currencies();
         $platforms = platforms();
-        $tokens = tokens();
+        $networks = networks();
 
         return view('dashboard')->withBanks($banks)->withUserbank($userbank)->withUsers($users)
-            ->withCurrencies($currencies)->withPlatforms($platforms)->withTokens($tokens)
+            ->withCurrencies($currencies)->withPlatforms($platforms)->withNetworks($networks)
             ->withWallets($wallets)->withUsertransactions($usertransactions)
             ->withTransactions($transactions);
     }

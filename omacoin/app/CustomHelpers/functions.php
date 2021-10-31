@@ -42,7 +42,7 @@ function timeago( $ptime )
 // Wallet QR Code Function
 function walletQR($address, $filepath)
 {
-    QrCode::format('png')->size(1000)->merge('/public/img/logo/smartcoin2.png', .25)->errorCorrection('H')->generate($address, $filepath);
+    QrCode::format('png')->size(1000)->merge('/public/img/logo/Omacoin_Circle.png', .25)->errorCorrection('H')->generate($address, $filepath);
 
     return true;
 }
@@ -58,16 +58,31 @@ function currencies() {
         "ETH" => [
             "name" => "Ethereum",
             "icon" => "eth.png",
-            "default" => "Paxful"
+            "default" => "Binance"
         ],
         "USDT" => [
             "name" => "Tether",
             "icon" => "usdt.png",
-            "default" => "Paxful"
+            "default" => "Binance"
         ],
         "DOGE" => [
             "name" => "Dogecoin",
             "icon" => "doge.png",
+            "default" => "Binance"
+        ],
+        "BNB" => [
+            "name" => "Binance Coin",
+            "icon" => "bnb.png",
+            "default" => "Binance"
+        ],
+        "TRX" => [
+            "name" => "Tron",
+            "icon" => "trx.png",
+            "default" => "Binance"
+        ],
+        "SOL" => [
+            "name" => "Solana",
+            "icon" => "sol.png",
             "default" => "Binance"
         ]
     ];
@@ -82,10 +97,10 @@ function platforms() {
     return $platforms;
 }
 
-function tokens() {
-    $tokens = ['BEP2', 'BEP20', 'ERC20', 'TRC20', 'Solana'];
+function networks() {
+    $networks = ['BEP2', 'BEP20', 'ERC20', 'Solana', 'TRC20'];
 
-    return $tokens;
+    return $networks;
 }
 
 function limits() {

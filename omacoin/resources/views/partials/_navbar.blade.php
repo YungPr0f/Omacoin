@@ -5,13 +5,13 @@
                 <nav class="navbar navbar-expand-lg">
                     
                     <a class="navbar-brand d-none d-lg-inline-block py-auto" href="/">
-                        <img src="{{ asset('img/logo/OmaCoin.png') }}" width="50px" alt="OmaCoin">
-                        <span class="h2 v-align-middle my-auto">OmaCoin</span>
+                        <img src="{{ asset('img/logo/Omacoin.png') }}" width="50px" alt="Omacoin">
+                        <span class="h2 v-align-middle my-auto">Omacoin</span>
                     </a>
                     <div class="navbar-menu d-lg-none d-inline-block pl-10 h-32">
                         <a class="menu-bar h-32" href="#side-menu-left"><i class="lni-menu" style="font-size:2rem;"></i></a>
                     </div>
-                    <img src="{{ asset('img/logo/OmaCoin.png') }}" width="70px" class="img-fluid d-lg-none d-inline-block pl-30 mr-auto" alt="OmaCoin">
+                    <img src="{{ asset('img/logo/Omacoin.png') }}" width="70px" class="img-fluid d-lg-none d-inline-block pl-30 mr-auto" alt="Omacoin">
 
                     <div class="collapse navbar-collapse sub-menu-bar ml-auto" id="navbarTwo">
                         <ul class="navbar-nav ml-auto">
