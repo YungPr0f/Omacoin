@@ -7,7 +7,7 @@
                         <div class="col-6">
                             <div class="footer-logo-support d-md-flex align-items-end justify-content-between">
                                 <div class="footer-logo d-flex align-items-end">
-                                    <a class="mt-30" href="index.html"><img src="{{ asset('img/logo/Omacoin.png') }}" class="img-fluid" alt="Logo"></a>
+                                    <a class="mt-30" href="index.html"><img src="{{ asset('img/logo/omacoin-logo.png') }}" class="img-fluid" alt="Logo"></a>
 
                                     
                                 </div> <!-- footer logo -->
@@ -20,17 +20,17 @@
                             <div class="footer-logo-support d-md-flex">
                                 <div class="footer-logo w-100">
                                     <ul class="social ml-0 mt-20 d-flex justify-content-between">
-                                        <li><a class="whatsapp-chat" href="whatsapp" ><i class="lni-whatsapp"></i></a></li>
+                                        <li><a class="whatsapp-chat text-success" href="whatsapp" ><i class="lni-whatsapp"></i></a></li>
                                         <!-- <li><a href="https://facebook.com/uideckHQ"><i class="lni-phone-handset"></i></a></li> -->
-                                        <li><a href="https://facebook.com/uideckHQ"><i class="lni-facebook-filled"></i></a></li>
-                                        <li><a href="https://twitter.com/uideckHQ"><i class="lni-twitter-original"></i></a></li>
-                                        <li><a href="https://instagram.com/uideckHQ"><i class="lni-instagram-original"></i></a></li>
+                                        <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                                        <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                                        <li><a href="#"><i class="lni-instagram-original"></i></a></li>
                                         <li class="mr-0"><a href="#"><i class="lni-linkedin-original"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <!-- <span class="number">+8801234567890</span>
-                            <span class="mail">support@omacoin.com.ng</span> -->
+                            <span class="mail">xxxx@xxx.xxx</span> -->
                         </div>
                         <div class="col-12 text-center">
                             <div class="footer-newsletter">
@@ -38,10 +38,10 @@
                                 <div class="newsletter">
                                     <form action="#">
                                         <input type="text" placeholder="Your Email">
-                                        <button type="submit"><i class="lni-angle-double-right font-weight-bold text-blue"></i></button>
+                                        <button disabled type="submit"><i class="lni-angle-double-right font-weight-bold text-blue"></i></button>
                                     </form>
                                 </div>
-                                <p class="text">Subscribe to our weekly newsletter to get upto date rates.</p>
+                                <p class="text">Subscribe to our weekly newsletter to get up-to-date rates.</p>
                             </div> <!-- footer newsletter -->
                         </div>
                     </div>
@@ -67,32 +67,34 @@
                         </ul>
                     </div> <!-- footer link -->
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6" id="contact">
                     <div class="contact-form form-style-two">
-                        <form action="#">
+                        <form action="{{ route('contact.form') }}" method="POST">
+                            @csrf
+                            
                             <div class="form-input mt-15">
                                 <label>Name</label>
                                 <div class="input-items default">
-                                    <input type="text" placeholder="Name">
+                                    <input name="name" type="text" placeholder="Name">
                                     <i class="lni-user"></i>
                                 </div>
                             </div> <!-- form input -->
                             <div class="form-input mt-15">
                                 <label>Email</label>
                                 <div class="input-items default">
-                                    <input type="text" placeholder="Email">
+                                    <input name="email" type="text" placeholder="Email">
                                     <i class="lni-envelope"></i>
                                 </div>
                             </div> <!-- form input -->
                             <div class="form-input mt-15">
                                 <label>Message</label>
                                 <div class="input-items default">
-                                    <textarea placeholder="Message"></textarea>
+                                    <textarea name="message" placeholder="Message"></textarea>
                                     <i class="lni-pencil-alt"></i>
                                 </div>
                             </div> <!-- form input -->
                             <div class="form-input standard-buttons mt-20">
-                                <a href="#" class="main-btn standard-two">Submit</a>
+                                <button type="submit" class="main-btn standard-two">Submit</button>
                             </div> <!-- form input -->
                         </form>
                     </div> <!-- contact form -->

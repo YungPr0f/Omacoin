@@ -4,14 +4,17 @@
     </div>
     <div class="sidebar-content">
         <div class="sidebar-logo px-3">
-            <a href="#"><img src="{{ asset('img/logo/Omacoin.png') }}" width="40px" alt="Logo"></a>
-            <span class="h4 v-align-middle my-auto">Omacoin</span>
+            <a href="/">
+                <img src="{{ asset('img/logo/omacoin-logo.png') }}" width="40px" alt="Logo">
+                <span class="h4 v-align-middle my-auto">Omacoin</span>
+            </a>
+            
         </div> <!-- logo -->
         <div class="sidebar-menu">
             <ul>
-                <li><a class="active" href="/">HOME</a></li>
-                <li><a href="#">ABOUT</a></li>
-                <li><a href="#">CONTACT</a></li>
+                <li><a class="page-scroll active" href="#home">HOME</a></li>
+                <li><a class="page-scroll" href="#about">ABOUT</a></li>
+                <li><a class="page-scroll" href="#contact">CONTACT</a></li>
             </ul>
         </div> <!-- menu -->
         <div class="light-rounded-buttons d-inline-block d-block mr-50 px-3 w-100">

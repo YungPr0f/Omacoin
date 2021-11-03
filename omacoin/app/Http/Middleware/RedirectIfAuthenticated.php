@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            if (Auth::guard($guard)->check() && (Auth::user()->role != 'superadmin' || $request->isMethod('get'))) {
                 Session::flash('info', 'You are already logged in!');
                 return redirect(RouteServiceProvider::HOME);
             }

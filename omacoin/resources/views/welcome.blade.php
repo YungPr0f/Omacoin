@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <section class="call-action-area call-action-three pt-50 mt-70 pl-20 pr-20">
+    <section class="call-action-area call-action-three pt-50 mt-70 pl-20 pr-20" id="home">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -24,16 +24,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 d-none d-lg-block">
+                <div class="col-lg-6">
                     <div class="call-action-content mt-50">
-                        <img src="{{ asset('images/call-to-action/call-to-action.png') }}" alt="call to action">
+                        <img src="{{ asset('img/bg/omacoin-flier.png') }}" alt="call to action">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="features-area features-one pb-5">
+    <section class="features-area features-one pb-5" id="about">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -48,7 +48,7 @@
                     <div class="single-features text-center mt-40">
                         <div class="features-icon">
                             <i class="lni-bitcoin"></i>
-                            <img class="shape" src="{{ asset('images/features/f-shape-4.svg') }}" alt="Shape">
+                            <img class="shape" src="{{ asset('img/ui/f-bean.svg') }}" alt="Shape">
                         </div>
                         <div class="features-content">
                             <h4 class="features-title"><a href="#">Easy to Use</a></h4>
@@ -60,7 +60,7 @@
                     <div class="single-features text-center mt-40">
                         <div class="features-icon">
                             <i class="lni-wallet"></i>
-                            <img class="shape" src="{{ asset('images/features/f-shape-4.svg') }}" alt="Shape">
+                            <img class="shape" src="{{ asset('img/ui/f-bean.svg') }}" alt="Shape">
                         </div>
                         <div class="features-content">
                             <h4 class="features-title"><a href="#">Fast Payment</a></h4>
@@ -72,7 +72,7 @@
                     <div class="single-features text-center mt-40">
                         <div class="features-icon">
                             <i class="lni-protection"></i>
-                            <img class="shape" src="{{ asset('images/features/f-shape-4.svg') }}" alt="Shape">
+                            <img class="shape" src="{{ asset('img/ui/f-bean.svg') }}" alt="Shape">
                         </div>
                         <div class="features-content">
                             <h4 class="features-title"><a href="#">Safe & Secure</a></h4>
@@ -84,7 +84,7 @@
         </div>
     </section>
 
-    <section class="features-area features-five pb-5">
+    <section class="features-area features-five pb-50">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -97,7 +97,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 1</a></h4>
-                        <p class="text">Register a free account with us to get your powerful Omacoin dedicated wallet address.</p>
+                        <p class="text">Register a free account with us to get your powerful Omacoin dedicated profile page with access to the "Sell Now" feature.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -109,14 +109,14 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="single-features mt-40 ">
                         <h4 class="features-title"><a href="#">Step 3</a></h4>
-                        <p class="text">Send bitcoin or ethereum to your Omacoin dedicated wallet address and get paid in Naira instantly.</p>
+                        <p class="text">Send bitcoin, ethereum or tether to the corresponding Omacoin wallet address and get paid in Naira instantly.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="testimonial-two">
+    <!-- <section class="testimonial-two">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -225,7 +225,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 @endsection
 
@@ -398,6 +398,16 @@
                                                                                 <div class="input-items default qr-preview hidden" data-value="">
                                                                                     <img src="{{ asset('img/wallets/' . $wallet->qrcode) }}" alt="" class="img-fluid field-border active">
                                                                                 </div>
+                                                                                @if(!empty($wallet->note))
+                                                                                <div class="alert single-alerts-message-small alerts-warning-bg fade show mt-3 p-1 br-5" role="alert">
+                                                                                    <div class="alerts-message-small-icon d-flex align-items-center ml-n2 mt-n2">
+                                                                                        <i class="lni-warning size-xs text-dark"></i>
+                                                                                    </div>
+                                                                                    <div class="alerts-message-small-content pl-4 lh-1">
+                                                                                        <small class="note text-white">{!! $wallet->note !!}</small>
+                                                                                    </div>
+                                                                                </div>
+                                                                                @else
                                                                                 <div class="alert single-alerts-message-small alerts-info-bg fade show mt-3 p-1 br-5" role="alert">
                                                                                     <div class="alerts-message-small-icon d-flex align-items-center ml-n2 mt-n2">
                                                                                         <i class="lni-information size-xs"></i>
@@ -406,7 +416,8 @@
                                                                                         <small class="text-white">Send {{ $wallet->currency }} to this wallet address</small>
                                                                                     </div>
                                                                                 </div>
-
+                                                                                @endif
+                                                                                
                                                                             </div>
                                                                         </div>
                                                                         @endforeach
@@ -807,9 +818,6 @@
                                 if(platform == 'Default') {
                                     var walletNavs = sellCrypto.find('.wallet-nav[default][data-currency="'+ currency +'"]');
                                     var walletContents = sellCrypto.find('.wallet-content[default][data-currency="'+ currency +'"]');
-
-                                    console.log(walletNavs);
-                                    console.log(walletContents);
                                     
                                 } else {
                                     var walletNavs = sellCrypto.find('.wallet-nav[data-platform="'+ platform +'"][data-currency="'+ currency +'"]');
@@ -823,9 +831,6 @@
 
                                     walletNavs.first().find('a').addClass('active');
                                     walletContents.first().addClass('active show');
-
-                                    console.log(walletNavs.first());
-                                    console.log(walletContents.first());
 
                                     walletNavs.each(function(index, walletNav) {
 

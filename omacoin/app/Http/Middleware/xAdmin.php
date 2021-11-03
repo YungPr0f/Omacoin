@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Providers\RouteServiceProvider;
 
 class Admin
 {
@@ -21,16 +21,15 @@ class Admin
     {
         $role = Auth::user()->role;
 
-        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')) {
+        if (Auth::check() && Auth::user()->role == 'admin') {
             return $next($request);
 
-        } elseif (Auth::check() && Auth::user()->role == 'member') {
-            Session::flash('error', 'Unauthorized action!');
-            return redirect(RouteServiceProvider::HOME);
-
         } else {
+            
+            Session::flash('error', 'Administrators only!');
             return redirect(RouteServiceProvider::HOME);
 
         }
+
     }
 }

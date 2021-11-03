@@ -17,6 +17,8 @@ class DashboardController extends Controller
     public function __construct() {
 
         $this->middleware(['auth', 'verified']);
+
+        $this->middleware('superadmin')->only('role_edit');
         
     }
     /**
@@ -32,7 +34,8 @@ class DashboardController extends Controller
         $usertransactions = Transaction::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         
         $banks = Bank::all();
-        $users = User::all();
+        // $users = User::all();
+        $users = User::orderBy('created_at', 'desc')->get();
         $wallets = Wallet::all();
         $transactions = Transaction::orderBy('updated_at', 'desc')->get();
 
@@ -139,6 +142,33 @@ class DashboardController extends Controller
         
         // If Validator fails
         return response()->json(['error'=>$validator->errors()->all()]); // Send Error Response in JSON format to View
+    }
+
+
+    public function role_edit(Request $request, $id)
+    {
+
+        if($id != Auth::id()) {
+            $user = User::find($id); // Find and fetch user with matching unique identifier
+
+            if($request->role == 'disable') {
+                $user->role = NULL;
+
+            } else {
+                $user->role = $request->role;
+
+            }
+
+            $user->save();
+
+            return response()->json(['success'=>'Role updated successfully', 'data'=>$user]);
+
+        } else {
+            return response()->json(['error'=>'You cannot edit your own role']); // Send Error Response in JSON Format to the View
+
+        }
+        
+
     }
 
     /**

@@ -92,7 +92,7 @@ $('.txn-btn').click(function(e) {
 
                 var countryCode = '234';
                 var phoneNumber = '8081273542';
-                var text = `%2ASmartCoin%2A+Website%0D%0A%0D%0AName%3A+${userName}%0D%0A%0D%0ATxn+Ref%3A+${txnRef}%0D%0A%0D%0AStage%3A+${txnStage}%0D%0A%0D%0AMessage%3A+`;
+                var text = `%2AOmacoin%2A+Website%0D%0A%0D%0AName%3A+${userName}%0D%0A%0D%0ATxn+Ref%3A+${txnRef}%0D%0A%0D%0AStage%3A+${txnStage}%0D%0A%0D%0AMessage%3A+`;
                 window.open('https://wa.me/' + countryCode + phoneNumber + '?' + 'text=' + text, '_blank');
             });
 
@@ -131,7 +131,7 @@ $('.txn-btn').click(function(e) {
 
                 var countryCode = '234';
                 var phoneNumber = '8081273542';
-                var text = `%2ASmartCoin%2A+Website%0D%0A%0D%0AName%3A+${userName}%0D%0A%0D%0ATxn+Ref%3A+${txnRef}%0D%0A%0D%0AStage%3A+${txnStage}%0D%0A%0D%0AMessage%3A+`;
+                var text = `%2AOmacoin%2A+Website%0D%0A%0D%0AName%3A+${userName}%0D%0A%0D%0ATxn+Ref%3A+${txnRef}%0D%0A%0D%0AStage%3A+${txnStage}%0D%0A%0D%0AMessage%3A+`;
                 window.open('https://wa.me/' + countryCode + phoneNumber + '?' + 'text=' + text, '_blank');
             });
 

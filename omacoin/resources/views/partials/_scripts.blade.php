@@ -16,6 +16,10 @@
 <!--====== Images Loaded js ======-->
 <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
 
+<!--====== Scrolling Nav js ======-->
+<script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+<!-- <script src="{{ asset('js/scrolling-nav.js') }}"></script> -->
+
 <!--====== Magnific Popup js ======-->
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 
@@ -60,8 +64,11 @@
 
     // Preloader
     $(window).on('load', function() {
-        console.log('james');
-        $('.preloader').delay(1000).fadeOut(500);
+        // Wallets tab
+        if(localStorage.getItem('activeTab') == '.wallets') {
+            $('.wallets-container').find('.preloader').delay(1000).fadeOut(500);
+        }
+        
     });
 
     //===== Sidebar
@@ -99,19 +106,19 @@
     function priceFlash() {
 
         if(countx == 1) {
-            $('.rates').html('USDT - $450');
+            $('.rates').html('USDT');
             countx = 2;
 
         } else if(countx == 2) {
-            $('.rates').html('&nbsp;&nbsp; BTC - $465');
+            $('.rates').html('BTC');
             countx = 3;
 
         } else if(countx == 3) {
-            $('.rates').html('&nbsp;&nbsp;&nbsp; ETH - $475');
+            $('.rates').html('ETH');
             countx = 4;
 
         } else if(countx == 4) {
-            $('.rates').html('DOGE - $485');
+            $('.rates').html('DOGE');
             countx = 1;
 
         }
@@ -153,7 +160,7 @@
         e.preventDefault();
         var countryCode = '234';
         var phoneNumber = '8081273542';
-        var text = '%2ASmartCoin%2A+Website%0D%0A%0D%0AName%3A+%0D%0A%0D%0AMessage%3A+';
+        var text = '%2AOmacoin%2A+Website%0D%0A%0D%0AName%3A+%0D%0A%0D%0AMessage%3A+';
         window.open('https://wa.me/' + countryCode + phoneNumber + '?' + 'text=' + text, '_blank');
     });
 
@@ -262,6 +269,9 @@
     //     }
     // });
 
+    // For Nav page scroll
+    var scrollLink = $('.page-scroll');
+
     function addCustomScroll(selector) {
         $(selector).overlayScrollbars({
             // resize: "none",
@@ -277,21 +287,79 @@
             },
             callbacks : {
                 onInitialized : function() {
+                    
                     if($(this.getElements('target')).prop('tagName') == 'BODY') {
                         var bodyInstance = this;
-
+                        
+                        // Back to top
                         $('.back-to-top').on('click', function(event) {
                             event.preventDefault();
                             bodyInstance.scroll({ y : "0%" }, 1000);
                         });
+
+
+
+                        $(function() {
+
+                            $('a.page-scroll[href*="#"]:not([href="#"])').on('click', function () {
+                                
+                                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                                    var target = $(this.hash);
+                                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                                    if (target.length) {
+                                        // $('html, body').animate({
+                                        //     scrollTop: (target.offset().top -70)
+                                        // }, 1200, "easeInOutExpo");
+                                        bodyInstance.scroll({ y : target.offset().top -70 }, 1200, "easeInOutExpo");
+                                        return false;
+                                    }
+                                }
+                            });
+
+                        });
+
+                        
+
                     };
+
+
+                    
                 },
                 onScroll : function() {
-                    if(this.scroll().position.y > 900){
-                        $('.back-to-top').fadeIn(200)
-                    } else{
-                        $('.back-to-top').fadeOut(200)
+                    
+                    if($(this.getElements('target')).prop('tagName') == 'BODY') {
+
+                        // Back to top
+                        if(this.scroll().position.y > 900){
+                            $('.back-to-top').fadeIn(200)
+                        } else{
+                            $('.back-to-top').fadeOut(200)
+                        }
+
+
+                        // Nav page scroll
+                        // var scrollbarLocation = $(this).scrollTop();
+                        var scrollbarLocation = this.scroll().position.y;
+
+                        scrollLink.each(function() {
+
+                            var sectionOffset = $(this.hash).offset().top + 73;
+
+                            if ( sectionOffset <= scrollbarLocation ) {
+                                $(this).addClass('active');
+                                $(this).parent().siblings().children().removeClass('active');
+
+                                // $(this).parent().addClass('active');
+                                // $(this).parent().siblings().removeClass('active');
+                            }
+                        });
+
                     }
+                    
+
+
+                    
+
                     
                 }
             }
@@ -325,6 +393,44 @@
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
+
+    // Generate random password
+    function generatePassword() {
+        var length = 8,
+            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            retVal = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            retVal += charset.charAt(Math.floor(Math.random() * n));
+        }
+        
+        return retVal;
+    }
+
+
+    // Scrolling Nav
+    //===== Section Menu Active
+
+    // var scrollLink = $('.page-scroll');
+    
+    // // Active link switching
+    // $(window).scroll(function() {
+    //     alert('scroll');
+        
+    //     var scrollbarLocation = $(this).scrollTop();
+
+    //     scrollLink.each(function() {
+
+    //         var sectionOffset = $(this.hash).offset().top - 73;
+
+    //         if ( sectionOffset <= scrollbarLocation ) {
+    //             $(this).addClass('active');
+    //             $(this).parent().siblings().children().removeClass('active');
+
+    //             // $(this).parent().addClass('active');
+    //             // $(this).parent().siblings().removeClass('active');
+    //         }
+    //     });
+    // });
 
     @yield('custom_script')
 

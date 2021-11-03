@@ -1,17 +1,17 @@
 @if(Auth::user()->role == 'superadmin')
 <div class="single-portfolio border border-primary p-4">
     <div class="row mb-4">
-        <div class="col-sm-6 col-lg-4 col-xl-3">
+        <div class="col-sm-6 col-lg-3 col-xl-3 mb-4 mb-lg-0">
             <div class="single-card card-style-one form-style form-style-two">
                 <div class="card-image text-center p-4">
-                    <i class="lni-star display-1"></i>
+                    <i class="lni-shield display-1"></i>
                 </div>
                 <div class="card-content pt-0">
                     <div class="row justify-content-center">
                         <div class="col light-rounded-buttons buttons">
-                            <a href="#" id="create-admin" class="main-btn light-rounded-two text-none font-weight-normal w-100">
+                            <a href="#" id="create-user" class="main-btn light-rounded-two text-none font-weight-normal w-100 px-0">
                                 <i class="lni-plus font-weight-bold mr-1"></i>
-                                Create Admin
+                                Create User
                             </a>
                         </div>
                     </div>
@@ -19,9 +19,9 @@
             </div>
         </div>
 
-        <div class="col-sm-6 col-lg-4 col-xl-3">
+        <div class="col-sm-6 col-lg-3 col-xl-3 mb-4 mb-lg-0">
             <div class="single-card card-style-one form-style form-style-two">
-                <div class="card-image text-center px-4 pt-3 pb-0">
+                <div class="card-image text-center pt-3 pb-0">
                     <span class="text-success d-block">Members</span>
                     <hr class="m-0 border-white">
                     <i class="lni-users display-1"></i>
@@ -29,15 +29,15 @@
                 </div>
                 <div class="card-content pt-0">
                     <div class="row justify-content-center">
-                        <span class="h1 text-success">{{ count($users->where('role', 'member')) }}</span>
+                        <span class="h1 text-success member-count">{{ count($users->where('role', 'member')) }}</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-6 col-lg-4 col-xl-3">
+        <div class="col-sm-6 col-lg-3 col-xl-3 mb-4 mb-lg-0">
             <div class="single-card card-style-one form-style form-style-two">
-                <div class="card-image text-center px-4 pt-3 pb-0">
+                <div class="card-image text-center pt-3 pb-0">
                     <span class="text-info d-block">Administrators</span>
                     <hr class="m-0 border-white">
                     <i class="lni-star display-1"></i>
@@ -45,15 +45,15 @@
                 </div>
                 <div class="card-content pt-0">
                     <div class="row justify-content-center">
-                        <span class="h1 text-info">{{ count($users->where('role', 'admin')) }}</span>
+                        <span class="h1 text-info admin-count">{{ count($users->where('role', 'admin')) }}</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-6 col-lg-4 col-xl-3">
+        <div class="col-sm-6 col-lg-3 col-xl-3 mb-4 mb-lg-0">
             <div class="single-card card-style-one form-style form-style-two">
-                <div class="card-image text-center px-4 pt-3 pb-0">
+                <div class="card-image text-center pt-3 pb-0">
                     <span class="text-danger d-block">Super Administrators</span>
                     <hr class="m-0 border-white">
                     <i class="lni-crown display-1"></i>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="card-content pt-0">
                     <div class="row justify-content-center">
-                        <span class="h1 text-danger">{{ count($users->where('role', 'superadmin')) }}</span>
+                        <span class="h1 text-danger superadmin-count">{{ count($users->where('role', 'superadmin')) }}</span>
                     </div>
                 </div>
             </div>
@@ -84,6 +84,55 @@
                             </tr>
                         </thead>
                         <tbody class="table-tbody">
+
+                            @foreach($users as $user)
+                            <tr class="user-row">
+                                <td class="nowrap text-right text-mono d-flex align-items-center">
+                                    <span>{{ sprintf("%06d", $user->id) }}</span>
+                                    @if($user->role == 'superadmin')
+                                    <i class="role-icon lni-crown font-weight-bold ml-1"></i>
+                                    @elseif($user->role == 'admin')
+                                    <i class="role-icon lni-star font-weight-bold ml-1"></i>
+                                    @elseif($user->role == 'member')
+                                    <i class="role-icon lni-user font-weight-bold ml-1"></i>
+                                    @else
+                                    <i class="role-icon lni-close font-weight-bold ml-1"></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($user->role)
+                                    <span class="role">{{ ucfirst($user->role) }}</span>
+                                    @else
+                                    <span class="role text-danger">Disabled</span>
+                                    @endif
+                                </td>
+                                <td class="nowrap">
+                                    <span>{{ $user->surname . ' ' . $user->firstname }}</span>
+                                </td>
+                                <td class="nowrap">
+                                    <span>{{ timeago($user->created_at) }}</span>
+                                </td>
+                                <td>
+                                    <div>
+                                        @if($user->role == 'member')
+                                        <div class="light-rounded-buttons success-buttons">
+                                            <a href="#" class="main-btn success-two xs-btn text-none font-weight-normal w-100">
+                                                View Info
+                                            </a>
+                                        </div>
+                                        @else
+                                        <div class="light-rounded-buttons admin-edit" data-id="{{ $user->id }}" data-name="{{ $user->surname . ' ' . $user->firstname }}" data-role="{{ ($user->role) }}">
+                                            <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100">
+                                                Edit Role
+                                            </a>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    
+                                </td>
+                            </tr>
+                            @endforeach
+
                             <!-- Dummy User - Start -->
                             <tr class="dummy user-row hidden">
                                 <td class="nowrap text-right text-mono d-flex align-items-center">
@@ -94,51 +143,22 @@
                                     <span class="role"></span>
                                 </td>
                                 <td class="nowrap">
-                                    <span>Surname Firstname</span>
+                                    <span class="name">Surname Firstname</span>
                                 </td>
                                 <td class="nowrap">
-                                    <span class="name">Just Now</span>
+                                    <span>Just Now</span>
                                 </td>
                                 <td>
-                                    <div class="light-rounded-buttons light-rounded-buttons">
+                                    <div class="light-rounded-buttons admin-edit">
                                         <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100">
-                                            More Details  
+                                            Edit Role
                                         </a>
                                     </div>
                                 </td>
                             </tr>
                             <!-- Dummy User - End -->
 
-                            @foreach($users as $user)
-                            <tr class="user-row">
-                                <td class="nowrap text-right text-mono d-flex align-items-center">
-                                    <span>{{ sprintf("%06d", $user->id) }}</span>
-                                    @if($user->role == 'superadmin')
-                                    <i class="lni-crown font-weight-bold ml-1"></i>
-                                    @elseif($user->role == 'admin')
-                                    <i class="lni-star font-weight-bold ml-1"></i>
-                                    @else
-                                    <i class="lni-user font-weight-bold ml-1"></i>
-                                    @endif
-                                </td>
-                                <td>
-                                    <span>{{ ucfirst($user->role) }}</span>
-                                </td>
-                                <td class="nowrap">
-                                    <span>{{ $user->surname . ' ' . $user->firstname }}</span>
-                                </td>
-                                <td class="nowrap">
-                                    <span>{{ timeago($user->created_at) }}</span>
-                                </td>
-                                <td>
-                                    <div class="light-rounded-buttons light-rounded-buttons">
-                                        <a href="#" class="main-btn light-rounded-two xs-btn text-none font-weight-normal w-100">
-                                            More Details  
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

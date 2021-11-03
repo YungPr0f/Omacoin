@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Providers\RouteServiceProvider;
 
-class Admin
+class SuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -21,9 +21,13 @@ class Admin
     {
         $role = Auth::user()->role;
 
-        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')) {
+        if (Auth::check() && Auth::user()->role == 'superadmin') {
             return $next($request);
 
+        } elseif (Auth::check() && Auth::user()->role == 'admin') {
+            Session::flash('error', 'Unauthorized action!');
+            return redirect(RouteServiceProvider::HOME);
+            
         } elseif (Auth::check() && Auth::user()->role == 'member') {
             Session::flash('error', 'Unauthorized action!');
             return redirect(RouteServiceProvider::HOME);

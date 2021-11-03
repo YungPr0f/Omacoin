@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Password;
 
 class RegisteredUserController extends Controller
 {
@@ -33,8 +35,17 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'role' => 'in:member,admin,superadmin',
+        // $request->validate([
+        //     'role' => 'in:member,admin,superadmin',
+        //     'surname' => 'required|string|max:255',
+        //     'firstname' => 'required|string|max:255',
+        //     'email' => 'required|string|email|max:255|unique:users',
+        //     'phone_number' => 'required|string|max:255|unique:users',
+        //     'password' => 'required|string|confirmed|min:8',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'role' => 'sometimes|required|in:member,admin,superadmin',
             'surname' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -42,39 +53,50 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|confirmed|min:8',
         ]);
 
-        $user = User::create([
-            'role' => $request->role ?? '',
-            'surname' => $request->surname,
-            'firstname' => $request->firstname,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password),
-        ]);
 
-        
+        if($validator->passes()) {
 
-        if(empty($request->role)) {
+            $user = User::create(array_filter([
+                'role' => $request->role, // array_filter to ignore this if empty
+                'surname' => $request->surname,
+                'firstname' => $request->firstname,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'password' => Hash::make($request->password),
+            ], 'strlen'));
 
-            return response()->json(['error'=>'User created successfully', 'data'=>$user]);
 
-            // Auth::login($user);
+            if(empty($request->role)) { // If Member Registration
 
-            // event(new Registered($user));
+                Auth::login($user);
+    
+                event(new Registered($user));
+    
+                Session::flash('success', 'Registration successful');
+                return redirect(RouteServiceProvider::HOME);
+    
+            } else { // If Admin Creation
 
-            // Session::flash('success', 'Registration successful');
-            // return redirect(RouteServiceProvider::HOME);
-
-        } else {
-
-            if(!empty($validator->errors())) {
-                return response()->json(['error'=>$validator->errors()->all()]); // Send Error Response in JSON format to View
-
-            } else {
+                Password::sendResetLink(
+                    $request->only('email')
+                );
+    
                 return response()->json(['success'=>'User created successfully', 'data'=>$user]); // Send Success Response + Data in JSON Format to the View
-
+    
             }
 
+        } else {
+            // If Validator fails
+            
+            if(empty($request->role)) { // If Member Registration
+                return back()->withErrors($validator->errors())->withInput();
+
+            } else { // If Admin Creation
+                return response()->json(['error'=>$validator->errors()->all()]); // Send Error Response in JSON format to View
+            
+            }
         }
+
         
     }
 }

@@ -9,6 +9,7 @@
 
 @section('content')
 
+    @if(Auth::user()->role)
     <section class="portfolio-area portfolio-three pb-100 pt-50 mt-100" style="height:1000px;">
         <div class="container">
             <div class="row">
@@ -49,6 +50,13 @@
             </div>
         </div>
     </section>
+    @else
+    <section class="portfolio-area portfolio-three pb-50 pt-50 mt-85" style="height:auto">
+        <div class="container text-center">
+            <span class="lead text-danger">Your account is disabled! Please contact support.</span>
+        </div>
+    </section>
+    @endif
 
 @endsection
 
@@ -111,6 +119,10 @@
 
         if(filteredItem == 'wallets') {
             firstShowNote();
+
+        } else {
+            
+
         }
 
         // If responsive table exists in active tab
@@ -193,13 +205,11 @@
     @endif
 
 
-    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
     /////////////////// TRANSACTIONS - START ///////////////////
 
     @include('partials.dashboard.scripts._transactions')
 
     /////////////////// TRANSACTIONS - END ///////////////////
-    @endif
 
 
     @if(Auth::user()->role == 'superadmin')

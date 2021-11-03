@@ -680,8 +680,6 @@
         </div>
     </div>
 </div>
-
-
 @endif
 
 

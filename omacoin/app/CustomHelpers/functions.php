@@ -42,7 +42,7 @@ function timeago( $ptime )
 // Wallet QR Code Function
 function walletQR($address, $filepath)
 {
-    QrCode::format('png')->size(1000)->merge('/public/img/logo/Omacoin_Circle.png', .25)->errorCorrection('H')->generate($address, $filepath);
+    QrCode::format('png')->size(1000)->merge('/public/img/logo/omacoin-wallet-icon.png', .25)->errorCorrection('H')->generate($address, $filepath);
 
     return true;
 }

@@ -10,9 +10,18 @@ use App\Models\Wallet;
 use App\Models\User;
 use App\Models\Bank;
 use Auth;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewTransaction;
+use App\Notifications\TransactionUpdate;
+
 
 class TransactionController extends Controller
 {
+    public function __construct() {
+
+        $this->middleware(['auth', 'verified']);
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -121,9 +130,13 @@ class TransactionController extends Controller
                 $transaction->crypto_receipt = $filename; // Update field name with current file name
                 $transaction->status = 'processing';
                 $transaction->stage = 'crypto_sent';
+                $transaction->updated_by = Auth::id();
 
-                $transaction->save(); // Save to Database
-                return response()->json(['success'=>'Request submitted successfully']); // Send Success Response + Data in JSON Format to the View
+                if($transaction->save()) { // Save to Database
+                    Notification::route('mail', 'transactions@omacoin.com')->notify(new NewTransaction($transaction));
+                    return response()->json(['success'=>'Request submitted successfully']); // Send Success Response + Data in JSON Format to the View
+
+                }
 
             } else {
                 return response()->json(['error'=>'Something went wrong']); // Send Error Response in JSON format to View
@@ -173,7 +186,10 @@ class TransactionController extends Controller
 
         if($action == "confirm_crypto") {
             $transaction->stage = "crypto_received";
+            $transaction->updated_by = Auth::id();
             $transaction->save();
+
+            Notification::route('mail', 'transactions@omacoin.com')->notify(new TransactionUpdate($transaction));
 
             return response()->json(['success'=>'Cryptocurrency confirmed']); // Send Success Response in JSON Format to the View
         
@@ -198,8 +214,12 @@ class TransactionController extends Controller
                     $transaction->naira_amount = $request->naira_amount;
                     $transaction->naira_receipt = $filename; // Update field name with current file name
                     $transaction->stage = 'naira_sent';
-    
+                    $transaction->updated_by = Auth::id();
+
                     $transaction->save(); // Save to Database
+
+                    Notification::route('mail', 'transactions@omacoin.com')->notify(new TransactionUpdate($transaction));
+
                     return response()->json(['success'=>'Payment processed successfully']); // Send Success Response + Data in JSON Format to the View
     
                 } else {
@@ -214,8 +234,12 @@ class TransactionController extends Controller
         } elseif($action == "confirm_naira") {
             $transaction->stage = "naira_received";
             $transaction->status = "completed";
+            $transaction->updated_by = Auth::id();
+
             $transaction->save();
 
+            Notification::route('mail', 'transactions@omacoin.com')->notify(new TransactionUpdate($transaction));
+            
             return response()->json(['success'=>'Payment confirmed']); // Send Success Response in JSON Format to the View
         }
     }

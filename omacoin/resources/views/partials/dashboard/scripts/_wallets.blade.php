@@ -310,16 +310,16 @@ $('#add-wallet').click(function(e) {
 
                     var formData = new FormData(this);
 
-                    for (var pair of formData.entries()) {
-                        console.log(pair[0]+ ', ' + pair[1]); 
-                    }
+                    // for (var pair of formData.entries()) {
+                    //     console.log(pair[0]+ ', ' + pair[1]); 
+                    // }
 
                     // Trigger Save on Tinymce
                     tinymce.triggerSave();
 
-                    for (var pair of formData.entries()) {
-                        console.log(pair[0]+ ', ' + pair[1]); 
-                    }
+                    // for (var pair of formData.entries()) {
+                    //     console.log(pair[0]+ ', ' + pair[1]); 
+                    // }
 
                     $(this).find('.modal-footer button').attr('disabled', true);
                     $(this).find('.create').prepend(`<i class="lni-spinner lni-spin-effect"></i> `);
@@ -393,12 +393,12 @@ $('#add-wallet').click(function(e) {
                                 }).tooltip();
 
                                 cloneWallet.find('label.switch, .wallet-edit, .wallet-delete').attr('data-id', wallet.id);
-                                cloneWallet.find('label.switch, .wallet-delete').attr('data-name', wallet.platform + ' ' + wallet.currency + ' ' + wallet.network);
+                                cloneWallet.find('label.switch, .wallet-delete').attr('data-name', wallet.platform + ' ' + wallet.currency + ' ' + (wallet.network ?? ''));
 
                                 cloneWallet.find('.wallet-edit').attr({
                                     'data-platform' : wallet.platform,
                                     'data-currency' : wallet.currency,
-                                    'data-network' : wallet.network,
+                                    'data-network' : (wallet.network ?? ''),
                                     'data-address' : wallet.address,
                                     'data-rate' : Math.round(wallet.rate),
                                     'data-icon' : '{{ asset("img/currencies/") }}' + '/' + wallet.icon,
@@ -869,6 +869,8 @@ function firstShowNote() {
             }, 500)
             $('.dummy.wallet-card').addClass('hidden');
             $('.grid-3').isotope('layout');
+
+            $('.wallets-container').find('.preloader').delay(1000).fadeOut(500);
         }, 500);
 
         executed = true;
@@ -876,7 +878,7 @@ function firstShowNote() {
 
 }
 
-// Activate Wallet
+// Activate or Deactivate Wallet
 $('.switch').click(function(e) {
     e.preventDefault();
 
